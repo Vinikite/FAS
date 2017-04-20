@@ -1,0 +1,80 @@
+﻿@model System.Security.Claims.ClaimsIdentity
+@{
+    ViewBag.Title = "Claims";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-info h2">Claim info: </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Property name</td>
+            <td>Property value</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AuthenticationType</td>
+            <td>@Model.AuthenticationType</td>
+        </tr>
+        <tr>
+            <td>BootstrapContext</td>
+            <td>@Model.BootstrapContext</td>
+        </tr>
+        <tr>
+            <td>IsAuthenticated</td>
+            <td>@Model.IsAuthenticated</td>
+        </tr>
+        <tr>
+            <td>Label</td>
+            <td>@Model.Label</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>NameClaimType</td>
+            <td>@Model.NameClaimType</td>
+        </tr>
+        <tr>
+            <td>RoleClaimType</td>
+            <td>@Model.RoleClaimType</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+
+<div class="text-info h2">Claims: </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Issuer</td>
+            <td>OriginalIssuer</td>
+            <td>Properties</td>
+            <td>Subject</td>
+            <td>Type</td>
+            <td>Value</td>
+            <td>Value type</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model.Claims)
+        {
+        <tr>
+            <td>@claim.Issuer</td>
+            <td>@claim.OriginalIssuer</td>
+            <td>
+                @foreach (var property in claim.Properties)
+                {
+                <div>@property.Key => @property.Value</div>
+                }
+            </td>
+            <td>@claim.Subject</td>
+            <td>@claim.Type</td>
+            <td>@claim.Value</td>
+            <td>@claim.ValueType</td>
+        </tr>
+        }
+    </tbody>
+</table>

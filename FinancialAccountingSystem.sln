@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FAS.Domain", "FAS.Domain\FA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FAS.DAL", "FAS.DAL\FAS.DAL.csproj", "{462187BB-9234-4618-B3FE-AB2D82586818}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FAS.WebUI", "FAS.WebUI\FAS.WebUI.csproj", "{382327BF-33B2-489D-9C9E-206736B29C80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{462187BB-9234-4618-B3FE-AB2D82586818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{462187BB-9234-4618-B3FE-AB2D82586818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{462187BB-9234-4618-B3FE-AB2D82586818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382327BF-33B2-489D-9C9E-206736B29C80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382327BF-33B2-489D-9C9E-206736B29C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382327BF-33B2-489D-9C9E-206736B29C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382327BF-33B2-489D-9C9E-206736B29C80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

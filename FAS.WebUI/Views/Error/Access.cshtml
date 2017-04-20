@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Access";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="text-danger h1">You do not have enough rights to access this page.</div>
+<br />
+<a href="@Url.Action("GetAccess", "Account")" class="btn btn-primary">Request access rights</a>
+
