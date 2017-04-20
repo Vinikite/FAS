@@ -6,6 +6,11 @@ namespace FAS.Domain
 {
     public class Score : AppEntity
     {
+        public Score()
+        {
+            Transactions = new HashSet<Transaction>();
+        }
+
         public Guid IdUser { get; set; }
         public Guid IdViewScore { get; set; }
         public Guid IdTypeScore { get; set; }
