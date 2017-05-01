@@ -10,7 +10,6 @@ namespace FAS.WebUI.Infrastructure.Modules
         {
             builder.RegisterImpInterface(ThisAssembly, "Validator")
                    .InstancePerLifetimeScope();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
         }
     }
 }

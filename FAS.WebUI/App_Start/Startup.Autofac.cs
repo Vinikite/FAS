@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using FAS.DAL.Identity;
 using FAS.Domain;
 using FAS.WebUI.Infrastructure.Modules;
+using FAS.Core;
 
 namespace FAS.WebUI
 {
@@ -26,6 +27,7 @@ namespace FAS.WebUI
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<ValidatorModule>();
             configureOwin(builder, app);
+            builder.RegisterType<Core.UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
