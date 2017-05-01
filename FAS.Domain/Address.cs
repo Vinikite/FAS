@@ -5,6 +5,11 @@ namespace FAS.Domain
 {
     public class Address : AppEntity
     {
+        public Address()
+        {
+            Users = new HashSet<User>();
+        }
+
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
