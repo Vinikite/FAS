@@ -1,4 +1,4 @@
-﻿@model FAS.WebUI.Models.ChangeBookViewModel
+﻿@model FAS.WebUI.Models.ChangeTransactionViewModel
 @{
     ViewBag.Title = "Change";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,18 +7,18 @@
 <div class="text-info h2">Change book</div>
 @using (Html.BeginForm("Change", "Home", FormMethod.Post, new { role = "form" }))
 {
-    @Html.HiddenFor(m => m.Id)
+    @*@Html.HiddenFor(m => m.Id)
     @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-    </div>
-    <div class="form-group">
+    </div>*@
+    @*<div class="form-group">
         @Html.LabelFor(m => m.Price)
         @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
-    </div>
+    </div>*@
     <button type="submit" class="btn btn-success">
         <span class="glyphicon glyphicon-floppy-save"></span> Save changes
     </button>

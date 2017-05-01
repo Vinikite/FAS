@@ -2,6 +2,7 @@
 using Autofac;
 using FAS.DAL;
 using FAS.DAL.Repository;
+using FAS.Core;
 
 namespace FAS.WebUI.Infrastructure.Modules
 {
@@ -10,8 +11,9 @@ namespace FAS.WebUI.Infrastructure.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AppDbContext>().As<DbContext>().InstancePerLifetimeScope();
-
-            builder.RegisterImpInterface(typeof(AuthorRepository).Assembly, "Repository")
+            
+            builder.RegisterGeneric(typeof(AppRepository<>))
+                   .As(typeof(IAppRepository<>))
                    .InstancePerLifetimeScope();
         }
     }

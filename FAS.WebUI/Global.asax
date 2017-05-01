@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="FAS.WebUI.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="FAS.WebUI.MvcApplication" Language="C#" %>

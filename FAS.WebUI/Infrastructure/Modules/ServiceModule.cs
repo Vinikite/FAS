@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
+using FAS.BLL;
 using FAS.Core;
 
 namespace FAS.WebUI.Infrastructure.Modules
@@ -8,8 +9,9 @@ namespace FAS.WebUI.Infrastructure.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterImpInterface(typeof(AuthorService).Assembly, "Service")
+            builder.RegisterImpInterface(typeof(TransactionService).Assembly, "Service")
                    .InstancePerLifetimeScope();
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartup(typeof(FAS.WebUI.Startup))]
@@ -13,5 +14,6 @@ namespace FAS.WebUI
             ConfigureAutoMapper();
             ConfigureFluentValidation();
         }
+
     }
 }

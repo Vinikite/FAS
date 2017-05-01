@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
+using FAS.Core;
 
 namespace FAS.WebUI.Infrastructure.Modules
 {
@@ -9,6 +10,7 @@ namespace FAS.WebUI.Infrastructure.Modules
         {
             builder.RegisterImpInterface(ThisAssembly, "Validator")
                    .InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
         }
     }
 }

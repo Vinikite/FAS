@@ -1,11 +1,12 @@
-﻿using FAS.Domain;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Data.Entity;
+using FAS.Domain;
 
 namespace FAS.DAL.Identity
 {
-    public class AppUserManager : UserManager<User, Guid>
+    public class AppUserStore : UserStore<User, Role, Guid, UserLogin, UserRole, UserClaim>
     {
-        public AppUserManager(IUserStore<User, Guid> userStore) : base(userStore) { }
+        public AppUserStore(DbContext context) : base(context) { }
     }
 }

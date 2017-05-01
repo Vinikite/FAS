@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using FAS.Core;
+using FAS.BLL;
 using FAS.Domain;
 using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
@@ -17,16 +17,16 @@ namespace FAS.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBookService bookService;
+        private readonly IScoreService ScoreService;
 
-        public HomeController(IBookService bookService)
+        public HomeController(IScoreService scoreService)
         {
-            this.bookService = bookService;
+            this.ScoreService = scoreService;
         }
 
         public async Task<ActionResult> Index()
         {
-            return View(await bookService.GetAll().ProjectTo<SimpleBookViewModel>().ToListAsync());
+            return View(await ScoreService.Get().ProjectTo<SimpleScoreViewModel>().ToListAsync());
         }
 
         [HttpGet]
@@ -37,11 +37,11 @@ namespace FAS.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateBookViewModel model)
+        public async Task<ActionResult> Create(CreateScoreViewModel model)
         {
             if (ModelState.IsValid)
             {
-                await bookService.CreateAsync(Mapper.Map<Book>(model));
+                await ScoreService.CreateAsync(Mapper.Map<Score>(model));
                 return RedirectToAction("Index");
             }
 
@@ -52,27 +52,27 @@ namespace FAS.WebUI.Controllers
         [Authorize]
         public async Task<ActionResult> Delete(Guid id)
         {
-            await bookService.DeleteAsync(id);
+            await ScoreService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Change(Guid id)
         {
-            var book = Mapper.Map<ChangeBookViewModel>(bookService.Get(id));
-            return View(book);
+            var score = Mapper.Map<ChangeScoreViewModel>(ScoreService.GetAsync(id));
+            return View(score);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Change(ChangeBookViewModel model)
+        public async Task<ActionResult> Change(ChangeScoreViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var book = bookService.Get(model.Id);
-                book.Name = model.Name;
-                book.Price = model.Price;
-                await bookService.UpdateAsync(book);
+                var score = await ScoreService.GetAsync(model.Id);
+                score.Balance = model.Balance;
+                score.Notation = model.Notation;
+                await ScoreService.UpdateAsync(score);
                 return RedirectToAction("Index");
             }
 
