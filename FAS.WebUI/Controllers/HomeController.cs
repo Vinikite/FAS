@@ -26,7 +26,7 @@ namespace FAS.WebUI.Controllers
 
         public async Task<ActionResult> Index()
         {
-            return View(await ScoreService.Get().ProjectTo<SimpleScoreViewModel>().ToListAsync());
+            return View(await ScoreService.Get().ToListAsync());//.ProjectTo<SimpleScoreViewModel>().ToListAsync());
         }
 
         [HttpGet]
