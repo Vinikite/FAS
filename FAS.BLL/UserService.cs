@@ -41,14 +41,7 @@ namespace FAS.BLL
 
         private async Task<IdentityResult> createWithInfoAsync(User entity)
         {
-            var res = await userManager.CreateAsync(entity, entity.PasswordHash);
-
-            if (res.Succeeded)
-            {
-                await userManager.AddToRoleAsync(entity.Id, "User");
-            }
-
-            return res;
+            return await userManager.CreateAsync(entity, entity.PasswordHash);
         }
 
         public async Task DeleteAsync(Guid key)

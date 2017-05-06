@@ -126,7 +126,6 @@ namespace FAS.WebUI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult Success()
         {
             return View();
