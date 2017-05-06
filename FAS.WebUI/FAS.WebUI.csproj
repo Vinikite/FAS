@@ -234,7 +234,6 @@
     <Compile Include="Infrastructure\AutofacExtensions.cs" />
     <Compile Include="Infrastructure\AutofacValidatorFactory.cs" />
     <Compile Include="Infrastructure\Captcha.cs" />
-    <Compile Include="Infrastructure\ClaimPermissionAttribute.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\MapperExtensions.cs" />
     <Compile Include="Infrastructure\Mappers\DomainToViewModelMap.cs" />
@@ -280,7 +279,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="gtk-print-error.ico" />
-    <Content Include="NuGet.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -312,8 +310,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Claims.cshtml" />
-    <Content Include="Views\Account\Test.cshtml" />
     <Content Include="Views\Error\Access.cshtml" />
+    <Content Include="Views\Account\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

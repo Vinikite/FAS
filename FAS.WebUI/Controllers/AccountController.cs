@@ -10,6 +10,7 @@ using FAS.BLL;
 using FAS.Domain;
 using FAS.WebUI.Infrastructure;
 using FAS.WebUI.Models;
+using System.Linq;
 
 namespace FAS.WebUI.Controllers
 {
@@ -38,29 +39,33 @@ namespace FAS.WebUI.Controllers
             {
                 var user = await userService.GetByEmailAsync(model.Login);
 
-                if (user == null || !Crypto.VerifyHashedPassword(user.PasswordHash, model.Password))
+                if (user == null)
                 {
-                    ModelState.AddModelError(String.Empty, "Неверный логин или пароль");
+                    ModelState.AddModelError("Login", "Пользователь с таким email не зарегистрирован.");
                     return View(model);
                 }
-                else
+
+                var userWP = await userService.FindAsync(model.Login, model.Password);
+
+                if (userWP == null)
                 {
-                    var claims = await userService.CreateIdentityAsync(user);
+                    ModelState.AddModelError("Login", "Логин или пароль введен не верно.");
+                    ModelState.AddModelError("Password", "Логин или пароль введен не верно.");
 
-                    authManager.SignOut();
-                    authManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = true
-                    }, claims);
-
-                    if (!String.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-
-                    return RedirectToAction("Index", "Home");
+                    return View(model);
                 }
 
+                var claims = await userService.CreateIdentityAsync(userWP);
+                var authProperties = new AuthenticationProperties
+                {
+                    IssuedUtc = DateTimeOffset.UtcNow,
+                    IsPersistent = true
+                };
+
+                authManager.SignOut();
+                authManager.SignIn(authProperties, claims);
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);
@@ -76,41 +81,54 @@ namespace FAS.WebUI.Controllers
         [ValidateAntiForgeryToken]
         async public Task<ActionResult> SignUp(SignUpViewModel model)
         {
+            var isCaptchaValid = !String.IsNullOrEmpty(Session[Captcha.CaptchaKey].ToString()) &&
+                Session[Captcha.CaptchaKey].ToString().Equals(model.Captcha);
+
+            model.Captcha = String.Empty;
+
             if (ModelState.IsValid)
             {
-                if (!Session[Captcha.CaptchaKey].Equals(model.Captcha))
+                if (isCaptchaValid)
                 {
-                    ModelState.AddModelError("Captcha", "Incorrect code");
+                    var user = await userService.GetByEmailAsync(model.Login);
+
+                    if (user != null)
+                    {
+                        ModelState.AddModelError("Email", "Пользователь с таким email уже существует.");
+                        return View(model);
+                    }
+
+
+                    user = new User()
+                    { 
+                        UserName =  model.Login,
+                        PasswordHash = model.Password,
+                        Email = model.Login
+                    };
+                    user.UserName = model.Login;
+
+                    var createResult = await userService.CreateWithInfoAsync(user);
+
+                    if (createResult.Succeeded)
+                    {
+                        // send email to user 
+                        return RedirectToAction("Success");
+                    }
+
+                    ModelState.AddModelError("Email", createResult.Errors.Aggregate(String.Empty, (a, i) => a += i));
                     return View(model);
                 }
 
-                var user = await userService.GetByEmailAsync(model.Login);
-
-                if (user != null)
-                {
-                    ModelState.AddModelError("Users", "User with that email exists");
-                    return View(model);
-                }
-
-                user = new User
-                {
-                    Email = model.Login,
-                    PasswordHash = Crypto.HashPassword(model.Password),
-                    UserName = model.Login
-                };
-
-                var details = await userService.Create(user);
-
-                if (!details.Succedeed)
-                {
-                    ModelState.AddModelError(details.Property, details.Message);
-                    return View(model);
-                }
-
-                return RedirectToAction("Login", "Account");
+                ModelState.AddModelError("Captcha", "Неверный код с картинки");
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Success()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -136,26 +154,5 @@ namespace FAS.WebUI.Controllers
 
             return null;
         }
-
-        [Authorize]
-        [ClaimPermission("ViewClaims", UnlessRole = "Admin")]
-        async public Task<ActionResult> Claims()
-        {
-            var user = await userService.GetByEmailAsync(HttpContext.User.Identity.Name);
-
-            return View(await userService.CreateIdentityAsync(user));
-        }
-
-        [Authorize]
-        async public Task<ActionResult> GetAccess()
-        {
-            var user = await userService.GetByEmailAsync(HttpContext.User.Identity.Name);
-            var claim = new Claim(ClaimPermissionAttribute.MethodClaimType, "ViewClaims");
-
-            await userService.AddClaimAsync(user.Id, claim);
-
-            return RedirectToAction("Claims");
-        }
-
     }
 }
