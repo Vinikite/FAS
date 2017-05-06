@@ -15,7 +15,7 @@ namespace FAS.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public Guid IdAddress { get; set; }
+        public Guid? IdAddress { get; set; }
         public double AverageIncome { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifyOn { get; set; }

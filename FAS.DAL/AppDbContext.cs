@@ -47,19 +47,10 @@ namespace FAS.DAL
             modelBuilder.Entity<User>()
                         .Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<User>()
-                        .Property(x => x.FirstName)
-                        .IsRequired();
-            modelBuilder.Entity<User>()
-                        .Property(x => x.LastName)
-                        .IsRequired();
-            modelBuilder.Entity<User>()
-                        .Property(x => x.MiddleName)
-                        .IsRequired();
-            modelBuilder.Entity<User>()
                         .Property(x => x.AverageIncome)
                         .IsRequired();
             modelBuilder.Entity<User>()
-                        .HasRequired(x => x.Address)
+                        .HasOptional(x => x.Address)
                         .WithMany(x => x.Users)
                         .HasForeignKey(x => x.IdAddress);
 
