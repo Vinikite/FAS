@@ -3,13 +3,65 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="text-info h1 caption">система учета личных финансов</div><br /><br />
-<div class="text-info h4">
-    ДЕНЬГИ ЛЮБЯТ СЧЕТ <br />
+<div class="text-info h1 caption col-md-12">система учета личных финансов</div><br /><br />
+<div class="text-info h4 col-md-4">
+    ДЕНЬГИ ЛЮБЯТ СЧЕТ <br /><br /><br />
     Учет личных финансов, импорт операций из банков.
     Ваш финансовый навигатор в браузере и смартфоне.
     Планирование бюджета семьи и малого бизнеса.
     Это больше, чем просто домашняя бухгалтерия
+</div>
+
+<div class="container">
+    <div class="row otstup">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+
+
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="~/img/slider/1.jpeg" alt="...">
+                        <div class="carousel-caption">
+                            <h3>Знайте цену и большим и маленьким деньгам</h3>
+                            <p> Не переплачивайте, торгуйтесь, не позволяйте себя обманывать, потому что этим вы обесцениваете деньги. </p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="~/img/slider/2.jpeg" alt="...">
+                        <div class="carousel-caption">
+                            <h3>Деньгами необходимо делиться</h3>
+                            <p>Дело в том, что подобные пожертвования всегда окупаются.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="~/img/slider/3.jpeg" alt="...">
+                        <div class="carousel-caption">
+                            <h3>Деньги любят счет и пересчет</h3>
+                            <p> – это для них самое большое удовольствие.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+
+        </div>
+    </div>
 </div>
 <img src="~/img/1.png" class="show" title="prim"><br />
 
