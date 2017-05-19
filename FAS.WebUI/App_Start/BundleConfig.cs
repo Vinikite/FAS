@@ -26,6 +26,12 @@ namespace FAS.WebUI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-        }
+            bundles.Add(new ScriptBundle("~/js/app").Include(
+
+                //"~/scripts/app/controllers/HomeController.js",
+                "~/scripts/app/controllers/HomeController.js",
+                "~/scripts/app/controllers/ErrorController.js",
+                "~/scripts/app/controllers/TransactionController.js"));
+    }
     }
 }

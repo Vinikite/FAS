@@ -7,7 +7,6 @@ namespace FAS.WebUI.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public decimal Notation { get; set; }
 
         public DateTime CreateOn { get; set; }
         public DateTime? ModifyOn { get; set; }
@@ -19,8 +18,6 @@ namespace FAS.WebUI.Models
     {
         [Display(Name = "Name")]
         public string Name { get; set; }
-        [Display(Name = "Notation")]
-        public decimal Notation { get; set; }
     }
 
     public class ChangeCategoryViewModel : CreateCategoryViewModel

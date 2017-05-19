@@ -9,7 +9,10 @@ namespace FAS.Domain
         {
             Transactions = new HashSet<Transaction>();
         }
-
+        public Bank(string Name)
+        {
+            this.Name = Name;
+        }
         public string Name { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
     }

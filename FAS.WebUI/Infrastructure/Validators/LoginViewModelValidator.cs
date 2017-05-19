@@ -7,7 +7,7 @@ namespace FAS.WebUI.Infrastructure.Validators
     {
         public LoginViewModelValidator()
         {
-            RuleFor(x => x.Login).NotEmpty().EmailAddress();
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Password).NotEmpty().Length(8, 64);
         }
     }

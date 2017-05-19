@@ -1,0 +1,492 @@
+﻿@model List<FAS.WebUI.Models.ChangeUserViewModel>
+@{
+    ViewBag.Title = "HomeI Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<br /><br />
+<div class="text-info h1 caption col-md-12">система учета личных финансов</div><br /><br />
+@*@foreach (var user in Model)
+{
+<div class="text-info h1 caption col-md-offset-5">
+    @if (user.FirstName == null)
+    {
+        <a class="active" href="@Url.Action("Create", "Home", new { id = user.Id })">
+            <span class="brand brand-user">Профиль </span>
+        </a>
+    }
+    else
+    {
+        <a class="active" href="@Url.Action("Change", "Home")">
+            <span class="brand brand-user">Профиль </span>
+        </a>
+    }
+</div>
+
+     }*@
+
+    <div class="text-info h1 caption col-md-3">
+      <h5>  <a class="active" href="@Url.Action("Change", "Home")">
+            <span class="brand brand-user">dfhghkjkjlkjkjhtgsd </span>
+        </a><br />
+        <a class="active" href="@Url.Action("Change", "Home")">
+            <span class="brand brand-user">Профиль </span>
+        </a>
+        </h5>
+    </div>
+    <div class="text-info h1 caption col-md-6">
+       <h5>Дабро пожаловать</h5>
+    </div>
+    <div class="text-info h1 caption col-md-3">
+        <div id="ja-rightcol-inner" align="center">
+            <div class="module-best_kurs">
+                <div>
+                    <div>
+                        <div>
+
+                            <h3>Лучшие курсы валют 19/05</h3>
+                            <div align="center" style="padding: 0 15px 0 10px;">
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <!--покупка-продажа-->
+                                    <tbody>
+                                        <tr align="right" style="font-size:12px; font-family:Arial;color:#777777;">
+                                            <td width="35%"></td>
+                                            <td width="30%">покупка</td>
+                                            <td width="35%">продажа</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="2" colspan="3"></td>
+                                        </tr>
+                                        <!--USD-->
+                                        <tr align="right" style="font-size:12px; font-family:Arial;">
+                                            <td align="left"><b>USD</b></td>
+                                            <td>1,8580</td>
+                                            <td>1,8630</td>
+                                        </tr>
+                                        <!--EUR-->
+                                        <tr align="right" style="font-size:12px; font-family:Arial;">
+                                            <td align="left"><b>EUR</b></td>
+                                            <td>2,0720</td>
+                                            <td>2,0780</td>
+                                        </tr>
+                                        <!--RUR-->
+                                        <tr align="right" style="font-size:12px; font-family:Arial;">
+                                            <td align="left"><b>100 RUB</b></td>
+                                            <td>3,2510</td>
+                                            <td>3,2600</td>
+                                        </tr>
+                                        <!--EUR/USD-->
+                                        <tr align="right" style="font-size:12px; font-family:Arial;">
+                                            <td align="left"><b>EUR/USD</b></td>
+                                            <td>1,1140</td>
+                                            <td>1,1160</td>
+                                        </tr>
+                                        <!--полоска цвета-->
+                                        <tr>
+                                            <td height="3" colspan="3"></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="2" colspan="3" style="background:#4993CC"></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="3" colspan="3"></td>
+                                        </tr>
+                                        <!--Подробнее-->
+                                        <tr align="right" style="font-size:12px; font-family:Arial;">
+                                            <td colspan="3"><a href="http://select.by/kurs/" alt="Курсы валют в банках г.Минска" style="text-decoration: none;">все курсы</a></td>
+                                        </tr>
+                                        <!--Гибкие курсы-->
+                                        <tr align="left">
+                                            <td colspan="3" style="padding: 6px 0 6px 0;"></td> <!--<td colspan=3 style ='padding: 6px 0 6px 0;'></td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module-rek_240x400">
+                <div>
+                    <div>
+                        <div>
+                            <div class="align_center">
+                                <div class="align_center_to_left">
+                                    <div class="align_center_to_right">
+
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module-kurs_nbrb">
+                <div>
+                    <div>
+                        <div>
+
+                            <h3>Курсы валют НБ РБ</h3>
+                            <div align="center" style="padding: 0 5px 0 10px;">
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="text-align: right;">
+                                    <!--покупка-продажа-->
+                                    <tbody>
+                                        <tr style="font-size:12px;font-family:Arial;color:#777777;">
+                                            <td width="27%"></td>
+                                            <td width="25%">19/05</td>
+                                            <td width="25%">20/05</td>
+                                            <td></td>
+                                            <td width="23%"></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="2" colspan="5"></td>
+                                        </tr>
+                                        <!--USD-->
+                                        <tr style="font-size:12px;font-family:Arial;">
+                                            <td align="left"><b>1 USD</b></td>
+                                            <td>1,8680</td>
+                                            <td>1,8609</td>
+                                            <td><img src="~/img/down.gif"></td>
+                                            <td style="font-size:10px;font-family:Tahoma;color:#FF0000;">-0,0071</td>
+                                        </tr>
+                                        <!--EUR-->
+                                        <tr style="font-size:12px;font-family:Arial;">
+                                            <td align="left"><b>1 EUR</b></td>
+                                            <td>2,0788</td>
+                                            <td>2,0751</td>
+                                            <td><img src="~/img/down.gif"></td>
+                                            <td style="font-size:10px;font-family:Tahoma;color:#FF0000;">-0,0037</td>
+                                        </tr>
+                                        <!--RUR-->
+                                        <tr style="font-size:12px;font-family:Arial;">
+                                            <td align="left"><b>100 RUB</b></td>
+                                            <td>3,2485</td>
+                                            <td>3,2588</td>
+                                            <td><img src="~/img/up.gif"></td>
+                                            <td style="font-size:10px;font-family:Tahoma;color:#008000;">+0,0103</td>
+                                        </tr>
+                                        <!--полоска цвета-->
+                                        <tr>
+                                            <td height="3" colspan="5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="2" colspan="5" style="background:#4993CC"></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="3" colspan="5"></td>
+                                        </tr>
+                                        <!--Подробнее-->
+                                        <tr style="font-size:12px; font-family:Arial;">
+                                            <td colspan="5">
+                                                <a href="http://select.by/kurs/" alt="Курсы валют в банках г.Минска" style="text-decoration: none;">все курсы валют</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module-none">
+                <div>
+                    <div>
+                        <div>
+                            <link rel="stylesheet" type="text/css" media="screen" href="includes/js/converter/datePicker.css">
+                            <script type="text/javascript">
+	// вызов при первом запуске, получение первоначальных курсов
+	function start(){
+		$.getJSON("courses/converter/server_calc.php?date=0", {}, function (data) {
+			var_usd = parseFloat(data.var_usd);
+			//alert(var_usd);
+			var_eur = parseFloat(data.var_eur);
+			var_rur = parseFloat(data.var_rur);
+
+			if (var_usd == 0 && var_eur == 0 && var_rur == 0)
+			{
+				document.getElementById("form_byr").value = 0;
+				document.getElementById("form_eur").value = 0;
+				document.getElementById("form_rur").value = 0;
+				document.getElementById("form_usd").value = 0;
+				//$("#error").fadeIn();
+			}
+			else{
+				document.getElementById("form_usd").value = 100;
+				calcItLocal("usd");
+			}
+		});
+	}
+
+	start();
+
+	var var_usd = parseFloat(0);
+	var var_eur = parseFloat(0);
+	var var_rur = parseFloat(0);
+	var var_alert = 0;
+	var lastChange = "usd";
+	// пересчет курсов локально, когда дата уже выбрана и меняются только суммы
+	function calcItLocal(currency) {
+
+		if (var_usd == 0 && var_eur == 0 && var_rur == 0)
+			if ((document.getElementById("usd_today").value > 0) && (document.getElementById("eur_today").value > 0) && (document.getElementById("rur_today").value > 0))
+			{
+				var_usd = document.getElementById("usd_today").value;
+				var_eur = document.getElementById("eur_today").value;
+				var_rur = document.getElementById("rur_today").value;
+				document.getElementById("datepicker").value = document.getElementById("date_today").value;
+			}
+
+			if (var_usd == 0 && var_eur == 0 && var_rur == 0){
+				document.getElementById("form_usd").value = "курсов";
+				document.getElementById("form_byr").value = "на эту";
+				document.getElementById("form_eur").value = "дату";
+				document.getElementById("form_rur").value = "нет !";
+			}
+			else{
+				//$("#error").fadeOut();
+				if (currency == "usd")
+				{
+					lastChange = "usd";
+					if (isNaN(document.getElementById("form_usd").value)) document.getElementById("form_usd").value = 100;
+					if ((document.getElementById("form_usd").value == "") || (document.getElementById("form_usd").value == " ")){
+						document.getElementById("form_usd").value = "";
+						document.getElementById("form_byr").value = 0;
+						document.getElementById("form_eur").value = 0;
+						document.getElementById("form_rur").value = 0;
+						return;
+					}
+					document.getElementById("form_byr").value	= Math.round(parseFloat(document.getElementById("form_usd").value) * var_usd * 10000) / 10000;
+					document.getElementById("form_eur").value	= Math.round(parseFloat(document.getElementById("form_usd").value) * var_usd / var_eur * 10000) / 10000;
+					document.getElementById("form_rur").value		= Math.round(parseFloat(document.getElementById("form_usd").value) * var_usd / var_rur * 10000) / 100;
+				}
+				else if (currency == "eur"){
+					lastChange = "eur";
+					if (isNaN(document.getElementById("form_eur").value)) document.getElementById("form_eur").value = 100;
+					if ((document.getElementById("form_eur").value == "") || (document.getElementById("form_eur").value == " ")){
+						document.getElementById("form_eur").value = "";
+						document.getElementById("form_byr").value = 0;
+						document.getElementById("form_usd").value = 0;
+						document.getElementById("form_rur").value = 0;
+						return;
+					}
+					document.getElementById("form_byr").value	= Math.round(parseFloat(document.getElementById("form_eur").value) * var_eur * 10000) / 10000;
+					document.getElementById("form_usd").value	= Math.round(parseFloat(document.getElementById("form_eur").value) * var_eur / var_usd * 10000) / 10000;
+					document.getElementById("form_rur").value		= Math.round(parseFloat(document.getElementById("form_eur").value) * var_eur / var_rur * 10000) / 100;
+				}
+				else if (currency == "rur"){
+					lastChange = "rur";
+					if (isNaN(document.getElementById("form_rur").value)) document.getElementById("form_rur").value = 100;
+					if ((document.getElementById("form_rur").value == "") || (document.getElementById("form_rur").value == " ")){
+						document.getElementById("form_rur").value = "";
+						document.getElementById("form_byr").value = 0;
+						document.getElementById("form_usd").value = 0;
+						document.getElementById("form_eur").value = 0;
+						return;
+					}
+					document.getElementById("form_byr").value	= Math.round(parseFloat(document.getElementById("form_rur").value) * var_rur * 100) / 10000;
+					document.getElementById("form_usd").value	= Math.round(parseFloat(document.getElementById("form_rur").value) * var_rur / var_usd * 100) / 10000;
+					document.getElementById("form_eur").value	= Math.round(parseFloat(document.getElementById("form_rur").value) * var_rur / var_eur * 100) / 10000;
+				}
+				else if (currency == "byr"){
+					lastChange = "byr";
+					if (isNaN(document.getElementById("form_byr").value)) document.getElementById("form_byr").value = 100;
+					if ((document.getElementById("form_byr").value == "") || (document.getElementById("form_byr").value == " ")){
+						document.getElementById("form_byr").value = "";
+						document.getElementById("form_eur").value = 0;
+						document.getElementById("form_usd").value = 0;
+						document.getElementById("form_rur").value = 0;
+						return;
+					}
+					document.getElementById("form_rur").value = Math.round(parseFloat(document.getElementById("form_byr").value) / var_rur * 10000) / 100;
+					document.getElementById("form_usd").value = Math.round(parseFloat(document.getElementById("form_byr").value) / var_usd * 10000) / 10000;
+					document.getElementById("form_eur").value = Math.round(parseFloat(document.getElementById("form_byr").value) / var_eur * 10000) / 10000;
+				}
+			}
+	}
+                            </script>
+
+                            <style type="text/css">
+                                div.converter label {
+                                    float: left;
+                                    padding-right: 2px;
+                                    padding-left: 10px;
+                                    font-weight: bold;
+                                    font-size: 12px;
+                                }
+
+                                div.converter input {
+                                    font-size: 14px;
+                                    padding-left: 4px;
+                                    height: 22px;
+                                    width: 160;
+                                }
+
+                                .converter {
+                                    clear: both;
+                                    text-align: right;
+                                    line-height: 28px;
+                                }
+
+                                .converter-main {
+                                    float: left;
+                                    width: 225px;
+                                    margin-top: 10px;
+                                    margin-left: 0px;
+                                    margin-bottom: 15px;
+                                    padding-top: 0px;
+                                    padding-right: 15px;
+                                    padding-left: 0px;
+                                }
+
+                                div.converter-main h3 {
+                                    text-align: left;
+                                    font-size: 18px;
+                                    font-weight: normal;
+                                    line-height: 36px;
+                                    margin-left: 10px;
+                                }
+                            </style>
+
+
+                            <div class="align_center">
+                                <div class="align_center_to_left">
+                                    <div class="align_center_to_right">
+
+                                        <div class="converter-main lifted">
+                                            <h3>Конвертер валют НБРБ</h3>
+                                            <div class="converter">
+                                                <label for="datepicker">Дата</label>
+                                                <input id="datepicker" type="text" value="2017-05-19" readonly="1" class="hasDatepicker">
+                                            </div>
+
+                                            <div class="converter">
+                                                <label for="form_usd">USD</label>
+                                                <input id="form_usd" type="text" name="usd" onkeyup="calcItLocal('usd')" value="100">
+                                            </div>
+
+                                            <div class="converter">
+                                                <label for="form_byr">BYN</label>
+                                                <input id="form_byr" type="text" name="byr" onkeyup="calcItLocal('byr')">
+                                            </div>
+
+                                            <div class="converter">
+                                                <label for="form_eur">EUR</label>
+                                                <input id="form_eur" type="text" name="eur" onkeyup="calcItLocal('eur')">
+                                            </div>
+
+                                            <div class="converter">
+                                                <label for="form_rur">RUB</label>
+                                                <input id="form_rur" type="text" name="rur" onkeyup="calcItLocal('rur')">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="usd_t" id="usd_today" value="1.868">
+                            <input type="hidden" name="eur_t" id="eur_today" value="2.0788">
+                            <input type="hidden" name="rur_t" id="rur_today" value="3.2485">
+                            <input type="hidden" name="date_t" id="date_today" value="2017-05-19">
+
+                            <script type="text/javascript">
+$(function() {
+	$('#datepicker').datepicker(
+	//jQuery.extend({showMonthAfterYear:false},jQuery.datepicker.regional['ru'],
+	{
+		dateFormat: "yy-mm-dd",
+		firstDay: 1,
+		nextText: "Следующий",
+		prevText: "Предыдущий",
+		dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+		dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+		monthNames: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
+		onClose: function()
+		{
+		//alert("?date=" + $("#datepicker").val() + "&time="+timeNow);
+		if($.browser.opera && $.browser.version <= 9.27) document.getElementById("datepicker").value = document.getElementById("date_today").value;
+
+		var timeNow = new Date();
+		$.getJSON("courses/converter/server_calc.php?date=" + $("#datepicker").val(), function (data) {
+				var_usd = parseFloat(data.var_usd);
+				var_eur = parseFloat(data.var_eur);
+				var_rur = parseFloat(data.var_rur);
+
+				if (var_usd == 0 && var_eur == 0 && var_rur == 0)
+				 if ((document.getElementById("usd_today").value > 0) && (document.getElementById("eur_today").value > 0) && (document.getElementById("rur_today").value > 0))
+					{
+						var_usd = document.getElementById("usd_today").value;
+						var_eur = document.getElementById("eur_today").value;
+						var_rur = document.getElementById("rur_today").value;
+						document.getElementById("datepicker").value = document.getElementById("date_today").value;
+					}
+
+				if (var_usd == 0 && var_eur == 0 && var_rur == 0)
+				{
+					document.getElementById("form_byr").value = 0;
+					document.getElementById("form_eur").value = 0;
+					document.getElementById("form_rur").value = 0;
+					document.getElementById("form_usd").value = 0;
+					//$("#error").fadeIn();
+					document.getElementById("form_usd").value = "курсов";
+					document.getElementById("form_byr").value = "на эту";
+					document.getElementById("form_eur").value = "дату";
+					document.getElementById("form_rur").value = "нет !";
+				}
+				else{
+					if (isNaN(document.getElementById("form_usd").value)){
+					  document.getElementById("form_usd").value = 100;
+					  lastChange = "usd";
+					}
+					calcItLocal(lastChange);
+				}
+			});
+		}
+	}//)
+	);
+	calcItLocal("usd");
+});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module-rek_240x400">
+                <div>
+                    <div>
+                        <div>
+                            <script>
+$(document).ready(function() {
+  $('#adv_Revive_right_bottom').scrollToFixed();
+});
+                            </script>
+
+                            <div id="adv_Revive_right_bottom" style="z-index: 1000;">
+                                <!--/* Revive Adserver Javascript Tag  */-->
+
+                                <script type="text/javascript">
+<!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://ads.select.by/www/delivery/ajs.php':'http://ads.select.by/www/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=9&amp;target=_blank");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script>
+                                <script type="text/javascript" src="http://ads.select.by/www/delivery/ajs.php?zoneid=9&amp;target=_blank&amp;cb=22192075865&amp;charset=windows-1251&amp;loc=http%3A//select.by/banks/&amp;referer=https%3A//www.google.by/"></script><noscript>&lt;a href='http://ads.select.by/www/delivery/ck.php?n=aed74e04&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='http://ads.select.by/www/delivery/avw.php?zoneid=9&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;n=aed74e04' border='0' alt='' /&gt;&lt;/a&gt;</noscript>
+
+                            </div><div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

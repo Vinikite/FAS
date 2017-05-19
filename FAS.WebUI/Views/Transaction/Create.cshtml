@@ -1,0 +1,40 @@
+﻿@using FAS.WebUI.Models
+@model ChangeTransactionViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Home/Create.cshtml";
+}
+
+<div class="col-md-12">
+    @using (Html.BeginForm("Change", "Transaction", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+        @Html.AntiForgeryToken()
+        <h4>Введите личные данные.</h4>
+        <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Notation, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Notation, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Notation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Comission, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Comission, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Comission, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Добавить" class="btn btn-default" />
+                    </div>
+                </div>
+    }
+</div>
+
+
+

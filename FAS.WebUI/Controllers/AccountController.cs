@@ -1,16 +1,24 @@
-﻿using Microsoft.Owin.Security;
-using System;
-using System.Drawing.Imaging;
+﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web.Helpers;
+using System.Web;
 using System.Web.Mvc;
-using FAS.BLL;
-using FAS.Domain;
-using FAS.WebUI.Infrastructure;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using FAS.WebUI.Models;
-using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using FluentValidation.Attributes;
+using System.Collections.Generic;
+using System.Data.Entity;
+using FAS.BLL;
+using FAS.WebUI.Infrastructure;
+using FAS.Domain;
+using FAS.WebUI.Infrastructure.Validators;
+using System.Drawing.Imaging;
 
 namespace FAS.WebUI.Controllers
 {
@@ -24,20 +32,27 @@ namespace FAS.WebUI.Controllers
             this.userService = userService;
             this.authManager = authManager;
         }
-
-        [HttpGet]
-        public ActionResult Login()
+       
+      
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
+        //
+        // POST: /Account/Login
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        async public Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var user = await userService.GetByEmailAsync(model.Login);
+                var user = await userService.GetByEmailAsync(model.Email);
 
                 if (user == null)
                 {
@@ -45,7 +60,7 @@ namespace FAS.WebUI.Controllers
                     return View(model);
                 }
 
-                var userWP = await userService.FindAsync(model.Login, model.Password);
+                var userWP = await userService.FindAsync(model.Email, model.Password);
 
                 if (userWP == null)
                 {
@@ -65,32 +80,43 @@ namespace FAS.WebUI.Controllers
                 authManager.SignOut();
                 authManager.SignIn(authProperties, claims);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("IndexHome", "Home");
             }
 
             return View(model);
         }
-
-        [HttpGet]
-        public ActionResult SignUp()
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
         {
             return View();
         }
+        [Authorize]
+        [ClaimPermission(Target.Account, Permission.Delete)]
+        async public Task<ActionResult> Claims()
+        {
+            var user = await userService.GetByEmailAsync(HttpContext.User.Identity.Name);
 
+            return View(await userService.CreateIdentityAsync(user));
+        }
+
+        //
+        // POST: /Account/Register
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        async public Task<ActionResult> SignUp(SignUpViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             var isCaptchaValid = !String.IsNullOrEmpty(Session[Captcha.CaptchaKey].ToString()) &&
                 Session[Captcha.CaptchaKey].ToString().Equals(model.Captcha);
 
             model.Captcha = String.Empty;
-
             if (ModelState.IsValid)
             {
                 if (isCaptchaValid)
                 {
-                    var user = await userService.GetByEmailAsync(model.Login);
+                    var user = await userService.GetByEmailAsync(model.Email);
 
                     if (user != null)
                     {
@@ -100,12 +126,12 @@ namespace FAS.WebUI.Controllers
 
 
                     user = new User()
-                    { 
-                        UserName =  model.Login,
+                    {
+                        UserName = model.Email,
                         PasswordHash = model.Password,
-                        Email = model.Login
+                        Email = model.Email
                     };
-                    user.UserName = model.Login;
+                    user.UserName = model.Email;
 
                     var createResult = await userService.CreateWithInfoAsync(user);
 
@@ -125,12 +151,27 @@ namespace FAS.WebUI.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult Success()
+        //
+        //
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
+        //
+        // POST: /Account/ExternalLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            // Запрос перенаправления к внешнему поставщику входа
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+        }
+
+        //
         [HttpGet]
         [Authorize]
         public ActionResult Logout()
@@ -154,5 +195,66 @@ namespace FAS.WebUI.Controllers
 
             return null;
         }
+
+        //
+
+        #region Вспомогательные приложения
+        // Используется для защиты от XSRF-атак при добавлении внешних имен входа
+        private const string XsrfKey = "XsrfId";
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        internal class ChallengeResult : HttpUnauthorizedResult
+        {
+            public ChallengeResult(string provider, string redirectUri)
+                : this(provider, redirectUri, null)
+            {
+            }
+
+            public ChallengeResult(string provider, string redirectUri, string userId)
+            {
+                LoginProvider = provider;
+                RedirectUri = redirectUri;
+                UserId = userId;
+            }
+
+            public string LoginProvider { get; set; }
+            public string RedirectUri { get; set; }
+            public string UserId { get; set; }
+
+            public override void ExecuteResult(ControllerContext context)
+            {
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                if (UserId != null)
+                {
+                    properties.Dictionary[XsrfKey] = UserId;
+                }
+                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+            }
+        }
+        #endregion
     }
 }

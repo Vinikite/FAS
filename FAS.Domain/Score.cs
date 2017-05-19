@@ -10,7 +10,15 @@ namespace FAS.Domain
         {
             Transactions = new HashSet<Transaction>();
         }
-
+        public Score(Guid IdUser, Guid IdViewScore, Guid IdTypeScore, Guid IdStatus, double Balance, string Notation)
+        {
+            this.IdUser = IdUser;
+            this.IdViewScore = IdViewScore;
+            this.IdTypeScore = IdTypeScore;
+            this.IdStatus = IdStatus;
+            this.Balance = Balance;
+            this.Notation = Notation;
+        }
         public Guid IdUser { get; set; }
         public Guid IdViewScore { get; set; }
         public Guid IdTypeScore { get; set; }

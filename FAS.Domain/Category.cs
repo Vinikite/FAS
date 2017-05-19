@@ -9,9 +9,12 @@ namespace FAS.Domain
         {
             Transactions = new HashSet<Transaction>();
         }
+        public Category(string Name)
+        {
+            this.Name = Name;
+        }
 
         public string Name { get; set; }
-        public string Notation { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
     }

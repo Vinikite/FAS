@@ -9,7 +9,10 @@ namespace FAS.Domain
         {
             Scores = new HashSet<Score>();
         }
-
+        public ViewScore(string Name)
+        {
+            this.Name = Name;
+        }
         public string Name { get; set; }
         public virtual ICollection<Score> Scores { get; set; }
     }

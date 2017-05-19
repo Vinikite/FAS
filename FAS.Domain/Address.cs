@@ -10,6 +10,14 @@ namespace FAS.Domain
             Users = new HashSet<User>();
         }
 
+        public Address(string Country,string City, string Street,string House,string Flat)
+        {
+            this.Country = Country;
+            this.City = City;
+            this.Street = Street;
+            this.House = House;
+            this.Flat = Flat;
+        }
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }

@@ -1,25 +1,74 @@
-﻿@model FAS.WebUI.Models.ChangeTransactionViewModel
+﻿@using FAS.WebUI.Models
+@model ChangeUserViewModel
 @{
-    ViewBag.Title = "Change";
+    ViewBag.Title = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>@ViewBag.Message.</h2>
+<h3>@ViewBag.Message</h3>
 
-<div class="text-info h2">Change book</div>
-@using (Html.BeginForm("Change", "Home", FormMethod.Post, new { role = "form" }))
+<p>Use this area to provide additional information.</p>
+<h2>@ViewBag.Title.</h2>
+@if (Model.Id == null)
 {
-    @*@Html.HiddenFor(m => m.Id)
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-    </div>*@
-    @*<div class="form-group">
-        @Html.LabelFor(m => m.Price)
-        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
-    </div>*@
-    <button type="submit" class="btn btn-success">
-        <span class="glyphicon glyphicon-floppy-save"></span> Save changes
-    </button>
+    <div class="text-danger h3">No items</div>
+}
+else
+{
+<div class="row">
+@if (HttpContext.Current.Request.IsAuthenticated)
+{
+    <div class="col-md-12">
+            @using (Html.BeginForm("Change", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <h4>Введите личные данные.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.Id)
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MiddleName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MiddleName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AverageIncome, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.AverageIncome, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.AverageIncome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Добавить" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </div>
+}
+    </div>
 }

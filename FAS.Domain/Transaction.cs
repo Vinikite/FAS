@@ -10,7 +10,7 @@ namespace FAS.Domain
         public Guid IdCategory { get; set; }
         public Guid IdBank { get; set; }
         public double Comission { get; set; }
-        public string Notation { get; set; }
+        public decimal Notation { get; set; }
 
         public virtual TransactionType TransactionType { get; set; }
         public virtual Score Score { get; set; }

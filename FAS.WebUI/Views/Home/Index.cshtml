@@ -1,8 +1,8 @@
-﻿@model List<FAS.Domain.Score>
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Home Page";
 }
+
+<br /><br />
 <div class="text-info h1 caption col-md-12">система учета личных финансов</div><br /><br />
 <div class="text-info h4 col-md-4">
     ДЕНЬГИ ЛЮБЯТ СЧЕТ <br /><br /><br />
@@ -63,8 +63,8 @@
         </div>
     </div>
 </div>
-<img src="~/img/1.png" class="show" title="prim"><br />
+<img src="~/img/1.png" class="show" title="param"><br />
 
-<a class="btn btn-success" href="@Url.Action("Create", "Home")"><span class="glyphicon glyphicon-plus"></span> Начните сейчас</a>
+<a class="btn btn-success" href="@Url.Action("SignUp", "Account")"><span class="glyphicon glyphicon-plus"></span> Начните сейчас</a>
 
 

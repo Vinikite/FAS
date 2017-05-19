@@ -7,9 +7,22 @@ namespace FAS.Domain
 {
     public class User : IdentityUser<Guid, UserLogin, UserRole, UserClaim>, IAppEntity<Guid>
     {
+        private string v;
+
         public User()
         {
             Scores = new HashSet<Score>();
+        }
+
+        public User(string Email,string PasswordHash, string FirstName,string LastName,string MiddleName,string UserName, double AverageIncome)
+        {
+            this.PasswordHash = PasswordHash;
+            this.Email = Email;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.MiddleName = MiddleName;
+            this.UserName = Email;
+            this.AverageIncome = AverageIncome;
         }
 
         public string FirstName { get; set; }

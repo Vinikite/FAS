@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    //Layout = "~/Views/Home/Create.cshtml";
+}
+
+<script>
+        var chart1;
+        var chart2;
+
+        makeCharts("light", "#FFFFFF");
+        function makeCharts(theme, bgColor, bgImage) {
+
+            if (chart1) {
+                chart1.clear();
+            }
+            if (chart2) {
+                chart2.clear();
+            }
+
+            // background
+            if (document.body) {
+                document.body.style.backgroundColor = bgColor;
+                document.body.style.backgroundImage = "url(" + bgImage + ")";
+            }
+        }
+</script>
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <nav class="navmenu navmenu-default navmenu-fixed-left" role="navigation">
+            <h2>Счета</h2>
+        </nav>
+        <div class="navmenu-fixed-left col-lg-2 navbar-fixed">
+            <a class="active" href="@Url.Action("Change", "Score")">
+                <span class="brand brand-user">Добавить лицевой счет </span>
+            </a><br>
+            <a class="active" href="@Url.Action("Create", "Score")">
+                <span class="brand brand-user">Изменить лицевой счет </span>
+            </a><br>
+            <a class="active" href="@Url.Action("IndexHome", "Home")">
+                <span class="brand brand-user">Профиль </span>
+            </a><br>
+        </div>
+        <div class="col-md-10">
+            <div>
+                <h4>Выберите тему:</h4>
+                <a href="#" onclick="makeCharts('light', '#ffffff');">Light</a> |
+                <a href="#" onclick="makeCharts('dark', '#282828')">Dark</a> |
+                <a href="#" onclick="makeCharts('black', '#222222')">Black</a> |
+                <a href="#" onclick="makeCharts('patterns', '#ffffff')">Patterns</a> |
+                <a href="#" onclick="makeCharts('chalk', '#282828', 'images/board.jpg')">Chalk</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,41 +8,45 @@ namespace FAS.WebUI.Infrastructure.Mappers
     {
         public static void CreateMap(IMapperConfigurationExpression config)
         {
-            config.CreateMap<Score, SimpleAddressViewModel>();
-            config.CreateMap<Score, CreateAddressViewModel>();
-            config.CreateMap<Score, ChangeAddressViewModel>();
+            config.CreateMap<Address, SimpleAddressViewModel>();
+            config.CreateMap<Address, CreateAddressViewModel>();
+            config.CreateMap<Address, ChangeAddressViewModel>();
 
             config.CreateMap<Score, SimpleScoreViewModel>();
             config.CreateMap<Score, CreateScoreViewModel>();
             config.CreateMap<Score, ChangeScoreViewModel>();
 
-            config.CreateMap<Score, SimpleTypeOfScoreViewModel>();
-            config.CreateMap<Score, CreateTypeOfScoreViewModel>();
-            config.CreateMap<Score, ChangeTypeOfScoreViewModel>();
+            config.CreateMap<TypeScore, SimpleTypeOfScoreViewModel>();
+            config.CreateMap<TypeScore, CreateTypeOfScoreViewModel>();
+            config.CreateMap<TypeScore, ChangeTypeOfScoreViewModel>();
 
-            config.CreateMap<Score, SimpleStatusScoreViewModel>();
-            config.CreateMap<Score, CreateStatusScoreViewModel>();
-            config.CreateMap<Score, ChangeStatusScoreViewModel>();
+            config.CreateMap<StatusScore, SimpleStatusScoreViewModel>();
+            config.CreateMap<StatusScore, CreateStatusScoreViewModel>();
+            config.CreateMap<StatusScore, ChangeStatusScoreViewModel>();
 
-            config.CreateMap<Score, SimpleViewScoreViewModel>();
-            config.CreateMap<Score, CreateViewScoreViewModel>();
-            config.CreateMap<Score, ChangeViewScoreViewModel>();
+            config.CreateMap<ViewScore, SimpleViewScoreViewModel>();
+            config.CreateMap<ViewScore, CreateViewScoreViewModel>();
+            config.CreateMap<ViewScore, ChangeViewScoreViewModel>();
 
-            config.CreateMap<Score, SimpleCategoryViewModel>();
-            config.CreateMap<Score, CreateCategoryViewModel>();
-            config.CreateMap<Score, ChangeCategoryViewModel>();
+            config.CreateMap<Category, SimpleCategoryViewModel>();
+            config.CreateMap<Category, CreateCategoryViewModel>();
+            config.CreateMap<Category, ChangeCategoryViewModel>();
 
-            config.CreateMap<Score, SimpleTransactionViewModel>();
-            config.CreateMap<Score, CreateTransactionViewModel>();
-            config.CreateMap<Score, ChangeTransactionViewModel>();
+            config.CreateMap<Transaction, SimpleTransactionViewModel>();
+            config.CreateMap<Transaction, CreateTransactionViewModel>();
+            config.CreateMap<Transaction, ChangeTransactionViewModel>();
 
-            config.CreateMap<Score, SimpleTransactionTypeViewModel>();
-            config.CreateMap<Score, CreateTransactionTypeViewModel>();
-            config.CreateMap<Score, ChangeTransactionTypeViewModel>();
+            config.CreateMap<TransactionType, SimpleTransactionTypeViewModel>();
+            config.CreateMap<TransactionType, CreateTransactionTypeViewModel>();
+            config.CreateMap<TransactionType, ChangeTransactionTypeViewModel>();
 
-            config.CreateMap<Score, SimpleBankViewModel>();
-            config.CreateMap<Score, CreateBankViewModel>();
-            config.CreateMap<Score, ChangeBankViewModel>();
+            config.CreateMap<Bank, SimpleBankViewModel>();
+            config.CreateMap<Bank, CreateBankViewModel>();
+            config.CreateMap<Bank, ChangeBankViewModel>();
+
+            config.CreateMap<User, SimpleUserViewModel>();
+            config.CreateMap<User, CreateUserViewModel>();
+            config.CreateMap<User, ChangeUserViewModel>();
         }
     }
 }

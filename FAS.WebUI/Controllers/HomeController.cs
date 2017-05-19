@@ -17,33 +17,70 @@ namespace FAS.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IScoreService ScoreService;
 
-        public HomeController(IScoreService scoreService)
+        public ActionResult IndexHome()
         {
-            this.ScoreService = scoreService;
+            return View();
         }
-
-        [HttpGet]
-        public async Task<ActionResult> Index()
-        {
-            return View(await ScoreService.Get().ToListAsync());//.ProjectTo<SimpleScoreViewModel>().ToListAsync());
-        }
-
-        [HttpGet]
-        public ActionResult Create()
+        public ActionResult About()
         {
             return View();
         }
 
+        private readonly IUserService UserService;
+
+        public HomeController(IUserService userService)
+        {
+            this.UserService = userService;
+        }
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            return View(await UserService.Get().ToListAsync());//ProjectTo<SimpleUserViewModel>().ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Create(Guid id, Guid IdAddress)
+        {
+            var user = Mapper.Map<ChangeUserViewModel>(await UserService.GetAsync(id));
+            return View(user);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateScoreViewModel model)
+        public async Task<ActionResult> Create(ChangeUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                await ScoreService.CreateAsync(Mapper.Map<Score>(model));
-                return RedirectToAction("Index");
+                var user = await UserService.GetAsync(model.Id);
+
+                if (user != null)
+                {
+                    ModelState.AddModelError("Id", "Id = null.");
+                    return View(model);
+                }
+
+
+                user = new User()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    MiddleName = model.MiddleName,
+                    PhoneNumber = model.PhoneNumber,
+                    AverageIncome = model.AverageIncome
+                };
+
+                var createResult = await UserService.CreateWithInfoAsync(user);
+
+                if (createResult.Succeeded)
+                {
+                    // send email to user 
+                    ViewBag.Message = "Error send email to user.";
+                }
+
+                //ModelState.AddModelError("Email", createResult.Errors.Aggregate(String.Empty, (a, i) => a += i));
+                return RedirectToAction("IndexHome");
             }
 
             return View(model);
@@ -53,32 +90,45 @@ namespace FAS.WebUI.Controllers
         [Authorize]
         public async Task<ActionResult> Delete(Guid id)
         {
-            await ScoreService.DeleteAsync(id);
-            return RedirectToAction("Index");
+            await UserService.DeleteAsync(id);
+            return RedirectToAction("IndexHome");
         }
-
         [HttpGet]
-        public ActionResult Change(Guid id)
+        [Authorize]
+        public async Task<ActionResult> Change(Guid id)
         {
-            var score = Mapper.Map<ChangeScoreViewModel>(ScoreService.GetAsync(id));
-            return View(score);
+            var user = Mapper.Map<ChangeUserViewModel>(await UserService.GetAsync(id));
+            return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Change(ChangeScoreViewModel model)
+        public async Task<ActionResult> Change(ChangeUserViewModel model, ChangeAddressViewModel modelA)
         {
             if (ModelState.IsValid)
             {
-                var score = await ScoreService.GetAsync(model.Id);
-                score.Balance = model.Balance;
-                score.Notation = model.Notation;
-                await ScoreService.UpdateAsync(score);
-                return RedirectToAction("Index");
+                var user = await UserService.GetAsync(model.Id);
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.MiddleName = model.MiddleName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.AverageIncome = model.AverageIncome;
+                var userA = await UserService.GetAsync(modelA.Id);
+                userA.MiddleName = modelA.City;
+                await UserService.UpdateAsync(user);
+                return RedirectToAction("IndexHome");
+
             }
 
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }

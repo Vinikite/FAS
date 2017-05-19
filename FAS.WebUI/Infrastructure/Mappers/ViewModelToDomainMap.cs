@@ -8,23 +8,25 @@ namespace FAS.WebUI.Infrastructure.Mappers
     {
         public static void CreateMap(IMapperConfigurationExpression config)
         {
-            config.CreateMap<CreateAddressViewModel, Score>()
+            config.CreateMap<CreateAddressViewModel, Address>()
                     .IgnoreProperty(m => m.Id);
+            config.CreateMap<CreateUserViewModel, User>()
+        .IgnoreProperty(m => m.Id);
             config.CreateMap<CreateScoreViewModel, Score>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateTypeOfScoreViewModel, Score>()
+            config.CreateMap<CreateTypeOfScoreViewModel, TypeScore>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateStatusScoreViewModel, Score>()
+            config.CreateMap<CreateStatusScoreViewModel, StatusScore>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateViewScoreViewModel, Score>()
+            config.CreateMap<CreateViewScoreViewModel, ViewScore>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateCategoryViewModel, Score>()
+            config.CreateMap<CreateCategoryViewModel, Category>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateTransactionViewModel, Score>()
+            config.CreateMap<CreateTransactionViewModel, Transaction>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateTransactionTypeViewModel, Score>()
+            config.CreateMap<CreateTransactionTypeViewModel, TransactionType>()
                     .IgnoreProperty(m => m.Id);
-            config.CreateMap<CreateBankViewModel, Score>()
+            config.CreateMap<CreateBankViewModel, Bank>()
                     .IgnoreProperty(m => m.Id);
         }
     }
