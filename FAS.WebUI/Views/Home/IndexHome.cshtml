@@ -13,13 +13,13 @@
     @if (user.FirstName == null)
     {
         <a class="active" href="@Url.Action("Create", "Home", new { id = user.Id })">
-            <span class="brand brand-user">Профиль </span>
+            <span class="brand brand-user">Create </span>
         </a>
     }
     else
     {
         <a class="active" href="@Url.Action("Change", "Home")">
-            <span class="brand brand-user">Профиль </span>
+            <span class="brand brand-user">Change </span>
         </a>
     }
 </div>
@@ -27,11 +27,11 @@
      }*@
 
     <div class="text-info h1 caption col-md-3">
-      <h5>  <a class="active" href="@Url.Action("Change", "Home")">
-            <span class="brand brand-user">dfhghkjkjlkjkjhtgsd </span>
+      <h5>  <a class="active" href="@Url.Action("Create", "Home")">
+            <span class="brand brand-user">Create </span>
         </a><br />
         <a class="active" href="@Url.Action("Change", "Home")">
-            <span class="brand brand-user">Профиль </span>
+            <span class="brand brand-user">Change </span>
         </a>
         </h5>
     </div>

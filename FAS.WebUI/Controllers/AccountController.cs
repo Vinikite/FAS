@@ -138,7 +138,7 @@ namespace FAS.WebUI.Controllers
                     if (createResult.Succeeded)
                     {
                         // send email to user 
-                        return RedirectToAction("Success");
+                        return RedirectToAction("IndexHome","Home");
                     }
 
                     ModelState.AddModelError("Email", createResult.Errors.Aggregate(String.Empty, (a, i) => a += i));
