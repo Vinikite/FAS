@@ -1,11 +1,11 @@
-﻿@model FAS.WebUI.Models.ChangeBankViewModel
+﻿@model FAS.WebUI.Models.CreateCategoryViewModel
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Добавьте новый банк</h2>
+<h2>Добавление категории транзакции</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -33,9 +33,7 @@
 <div>
     <ul class="pager">
         <li class="previous">
-            @Html.ActionLink("Назад к списку", "Index")
+            @Html.ActionLink("Назад к списку", "Index","Transaction")
         </li>
     </ul>
-    
 </div>
-

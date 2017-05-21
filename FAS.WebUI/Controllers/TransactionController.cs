@@ -31,6 +31,7 @@ namespace FAS.WebUI.Controllers
             return View(await TransactionService.Get().ProjectTo<SimpleTransactionViewModel>().ToListAsync());
         }
 
+      
         [HttpGet]
         public ActionResult Create(Guid id)
         {

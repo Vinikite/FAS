@@ -27,7 +27,7 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await BankService.Get().ToListAsync());
+            return View(await BankService.Get().ProjectTo<SimpleBankViewModel>().ToListAsync());
         }
 
         [HttpGet]

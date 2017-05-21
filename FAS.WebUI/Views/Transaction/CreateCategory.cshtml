@@ -1,16 +1,16 @@
-﻿@model FAS.WebUI.Models.ChangeBankViewModel
+﻿@model FAS.WebUI.Models.ChangeCategoryViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "CreateCategory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Добавьте новый банк</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -35,7 +35,8 @@
         <li class="previous">
             @Html.ActionLink("Назад к списку", "Index")
         </li>
+
     </ul>
-    
+
 </div>
 

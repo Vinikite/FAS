@@ -1,7 +1,7 @@
-﻿@model List<FAS.WebUI.Models.ChangeUserViewModel>
+﻿@model List<FAS.WebUI.Models.ChangeScoreViewModel>
 @{
-    ViewBag.Title = "Index";
-    //Layout = "~/Views/Home/Create.cshtml";
+    ViewBag.Title = "Index"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <script>
@@ -31,18 +31,21 @@
         <nav class="navmenu navmenu-default navmenu-fixed-left" role="navigation">
             <h2>Счета</h2>
         </nav>
-        <div class="navmenu-fixed-left col-lg-2 navbar-fixed">
-            <a class="active" href="@Url.Action("Change", "Score")">
+        <div class="navmenu-fixed-left col-lg-4 navbar-fixed">
+            <a class="active" href="@Url.Action("Create", "Score")">
                 <span class="brand brand-user">Добавить лицевой счет </span>
             </a><br>
-            <a class="active" href="@Url.Action("Create", "Score")">
+            <a class="active" href="@Url.Action("Change", "Score")">
                 <span class="brand brand-user">Изменить лицевой счет </span>
             </a><br>
             <a class="active" href="@Url.Action("IndexHome", "Home")">
                 <span class="brand brand-user">Профиль </span>
             </a><br>
         </div>
-        <div class="col-md-10">
+
+       
+
+        <div class="col-md-8">
             <div>
                 <h4>Выберите тему:</h4>
                 <a href="#" onclick="makeCharts('light', '#ffffff');">Light</a> |

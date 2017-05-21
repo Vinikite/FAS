@@ -1,7 +1,21 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-}
+scrollbar-face-color:#5997CA; 
+
+          scrollbar-shadow-color: #ffffff;
+
+          scrollbar-highlight-color: #ffffff;
+
+          scrollbar-3dlight-color: #5997CA;
+
+          scrollbar-darkshadow-color: #5997CA; 
+
+          scrollbar-track-color: #F6F6F6;
+
+          scrollbar-arrow-color: #F6F6F6; 
+
+} 
 
 /* Set padding to keep content from hitting the edges */
 .body-content {

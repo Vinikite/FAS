@@ -13,6 +13,7 @@ using FAS.Domain;
 using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
 using FAS.Web.Controllers;
+using FAS.DAL;
 
 namespace FAS.WebUI.Controllers
 {
@@ -24,41 +25,46 @@ namespace FAS.WebUI.Controllers
         {
             this.ScoreService = scoreService;
         }
-        ChangeScoreViewModel db = new ChangeScoreViewModel();
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await UserService.Get().ProjectTo<ChangeUserViewModel>().ToListAsync());
+            return View(await ScoreService.Get().ProjectTo<ChangeScoreViewModel>().ToListAsync());
         }
+        
+
        
-        [HttpGet]
-        public async Task<ActionResult> Create()
-        {
-            var scoreE = await GetCurrentUserIdAsync();
-            var score = Mapper.Map<ChangeScoreViewModel>(scoreE);
-            return View(score);
-        }
         [HttpGet]
         public ActionResult Change()
         {
             return View();
         }
 
+        
+        [HttpGet]
+        public async Task<ActionResult> Create()
+        {
+            //SelectList ViewScores = new SelectList(db.ViewScores, "Id", "Name");
+            //ViewBag.ViewScores = ViewScores;
+            //SelectList TypeScores = new SelectList(db.TypeScores, "Id", "Name");
+            //ViewBag.TypeScores = TypeScores;
+            //SelectList StatusScores = new SelectList(db.StatusScores, "Id", "Name");
+            //ViewBag.StatusScores = StatusScores;
+
+            //ViewBag.Artists = new SelectList( ent.ARM.Select(w => new { id = w.id, name = w.title}), "id", "name");
+            var userE = await GetCurrentUserAsync();
+            var user = Mapper.Map<ChangeUserViewModel>(userE);
+            return View(user);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ChangeScoreViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await GetCurrentUserIdAsync();
-                var score = await ScoreService.CreateAsync(Mapper.Map<Score>(model)); 
-                user.Id = model.IdUser;
-                score.LastName = model.IdStatus;
-                score.MiddleName = model.IdTypeScore;
-                score.PhoneNumber = model.IdViewScore;
-                score.AverageIncome = model.Notation;
-                score.AverageIncome = model.Balance;
-                await UserService.UpdateAsync(score);
+                var score = new Score { IdStatus = model.IdStatus, IdTypeScore = model.IdTypeScore, IdViewScore = model.IdViewScore };
+                var user = await GetCurrentUserAsync();
+                user.Scores.Add(score);
+                await UserService.UpdateAsync(user);
                 return RedirectToAction("Index", "Score");
             }
 

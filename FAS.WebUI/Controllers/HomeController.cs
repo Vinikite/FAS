@@ -22,8 +22,6 @@ namespace FAS.WebUI.Controllers
         public HomeController(IUserService userService) : base(userService) { }
         public async Task<ActionResult> IndexHome()
         {
-            SelectList books = new SelectList("Author", "Name");
-            ViewBag.Books = books;
             return View(await UserService.Get().ProjectTo<ChangeUserViewModel>().ToListAsync());
         }
         

@@ -1,8 +1,4 @@
-﻿@using FAS.WebUI.Models
-
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
@@ -14,8 +10,21 @@
     <title>@ViewBag.Title – FAS</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>amCharts examples</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+    <script src="~/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="~/amcharts/serial.js" type="text/javascript"></script>
+    <script src="~/amcharts/pie.js" type="text/javascript"></script>
+    <script src="~/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="~/amcharts/themes/dark.js" type="text/javascript"></script>
+    <script src="~/amcharts/themes/black.js" type="text/javascript"></script>
+    <script src="~/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="~/amcharts/themes/patterns.js" type="text/javascript"></script>
 </head>
+
 <body ng-app="myApp">
 
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +44,7 @@
                         <ul class="nav navbar-nav navbar-right">
 
                             <li>
-                                @Html.ActionLink("Здравствуйте, " + HttpContext.Current.User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                @Html.ActionLink("Здравствуйте, " + HttpContext.Current.User.Identity.Name + "!", "IndexHome", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
                             </li>
                             <li>
                                 <a href="@Url.Action("Logout", "Account")">
@@ -53,7 +62,7 @@
                             </li>
 
                             <li>
-                                <a class="active" href="@Url.Action("Home", "Score")">
+                                <a class="active" href="@Url.Action("Index", "Score")">
                                     <span class="brand">Мои счета</span>
                                 </a>
                             </li>
@@ -63,7 +72,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="active" href="@Url.Action("Home", "Bank")">
+                                <a class="active" href="@Url.Action("Index", "Bank")">
                                     <span class="brand">Банк</span>
                                 </a>
                             <li>
@@ -77,6 +86,7 @@
 
                                 @Html.ActionLink("Контакт", "Contact", "Home")
                             </li>
+
                         </ul>
                         <form role="search" class="navbar-form navbar-right">
                             <div class="form-group">
@@ -99,8 +109,14 @@
             </div>
         </div>
         <div class="container body-content">
-            <hr />
+            <hr /><br />
             @RenderBody()
+             <h3>Выберите тему:</h3>
+            <a href="#" onclick="makeCharts('light', '#ffffff');">Light</a> |
+            <a href="#" onclick="makeCharts('dark', '#282828')">Dark</a> |
+            <a href="#" onclick="makeCharts('black', '#222222')">Black</a> |
+            <a href="#" onclick="makeCharts('patterns', '#ffffff')">Patterns</a> |
+            <a href="#" onclick="makeCharts('chalk', '#282828', 'images/board.jpg')">Chalk</a>
             <hr />
         </div>
 

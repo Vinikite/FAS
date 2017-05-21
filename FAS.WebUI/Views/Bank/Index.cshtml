@@ -1,0 +1,79 @@
+﻿@model List<FAS.WebUI.Models.SimpleBankViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <nav class="navmenu navmenu-default navmenu-fixed-left" role="navigation">
+            <h2>Банки</h2>
+        </nav>
+        <div class="navmenu-fixed-left col-lg-2 navbar-fixed">
+            <a class="active" href="@Url.Action("Create", "Bank")">
+                <span class="brand brand-user">Добавить новый банк </span>
+            </a><br>
+            <a class="active" href="@Url.Action("IndexHome", "Home")">
+                <span class="brand brand-user">Профиль </span>
+            </a><br>
+        </div>
+        <div class="col-md-10">
+            @if (Model.Count == 0)
+            {
+                <div class="col-md-10 center-block">
+                    <div class="text-danger h3">Нет банков</div>
+                    <img src="~/img/3.jpg" class="show" title="param"><br />
+                </div>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>Имя</td>
+                            <td>DeleteOn</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Bank in Model)
+                        {
+                            <tr>
+                                <td>@Bank.Name</td>
+                                <td>
+                                    @if (!Bank.IsDeleted)
+                                    {
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+
+                                                <li>
+                                                    <a href="@Url.Action("Change", "Bank", new { id = Bank.Id })">
+                                                        <span class="glyphicon glyphicon-pencil"></span> Change
+                                                    </a>
+                                                </li>
+                                                @if (HttpContext.Current.Request.IsAuthenticated)
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("Delete", "Bank", new { id = Bank.Id })">
+                                                            <span class="glyphicon glyphicon-floppy-remove"></span> Remove
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+

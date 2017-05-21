@@ -43,7 +43,7 @@ namespace FAS.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 await CategoryService.CreateAsync(Mapper.Map<Category>(model));
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Transaction");
             }
 
             return View(model);

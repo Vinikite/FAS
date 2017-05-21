@@ -2,31 +2,28 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Home/Create.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ChangeScoreViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdUser, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdUser, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdUser, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.IdViewScore, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IdViewScore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(x => x.IdViewScore, new SelectList(new [] {"M",
+                "F"})) Вывод: <select id="Gender" name="Gender">
+                    <option>M</option>
+                    <option>F</option>
+                </select>
                 @Html.ValidationMessageFor(model => model.IdViewScore, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,17 +31,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdTypeScore, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IdTypeScore, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.DropDownListFor(model => model.IdTypeScore, ViewBag.TypeScores as SelectList, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.IdTypeScore, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        ViewData["taskStatus"] = task.Status.ToSelectList();
         <div class="form-group">
             @Html.LabelFor(model => model.IdStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IdStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdStatus, "", new { @class = "text-danger" })
-            </div>
+                    @*@Html.DropDownListFor(model => model.IdStatus, ViewBag.StatusScores as SelectList, htmlAttributes: new { @class = "form-control" })*@
+                    @Html.ValidationMessageFor(model => model.IdStatus, "", new { @class = "text-danger" })
+</div>
         </div>
 
         <div class="form-group">

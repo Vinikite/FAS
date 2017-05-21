@@ -1144,9 +1144,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Error\Access.cshtml" />
     <Content Include="Views\Score\Index.cshtml" />
-    <Content Include="Views\Bank\Home.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
-    <Content Include="Views\Score\Change1.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
@@ -1179,6 +1178,9 @@
     <Content Include="Views\Bank\Create.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Address\Create.cshtml" />
+    <Content Include="Views\Bank\Change.cshtml" />
+    <Content Include="Views\Transaction\CreateCategory.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

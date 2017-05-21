@@ -1,24 +1,11 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    //Layout = "~/Views/Home/Create.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>amCharts examples</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
-    <script src="~/amcharts/amcharts.js" type="text/javascript"></script>
-    <script src="~/amcharts/serial.js" type="text/javascript"></script>
-    <script src="~/amcharts/pie.js" type="text/javascript"></script>
-    @*файлы темы. Вам нужно только указать тему, которую вы используете.
-    Не стесняйтесь изменять темы и создавать собственные темы*@ 
-    <script src="~/amcharts/themes/light.js" type="text/javascript"></script>
-    <script src="~/amcharts/themes/dark.js" type="text/javascript"></script>
-    <script src="~/amcharts/themes/black.js" type="text/javascript"></script>
-    <script src="~/amcharts/themes/chalk.js" type="text/javascript"></script>
-    <script src="~/amcharts/themes/patterns.js" type="text/javascript"></script>
+
     <script>
         // для того, чтобы задать тему для диаграммы, все, что вам нужно, - включить файл темы
         // находится в папке amcharts / themes и задает свойство темы для диаграммы.
@@ -145,14 +132,7 @@
 </head>
 <div>
     <br />
-    <div class="col-md-12">
-        <h3>Выберите тему:</h3>
-        <a href="#" onclick="makeCharts('light', '#ffffff');">Light</a> |
-        <a href="#" onclick="makeCharts('dark', '#282828')">Dark</a> |
-        <a href="#" onclick="makeCharts('black', '#222222')">Black</a> |
-        <a href="#" onclick="makeCharts('patterns', '#ffffff')">Patterns</a> |
-        <a href="#" onclick="makeCharts('chalk', '#282828', 'images/board.jpg')">Chalk</a>
-    </div>
+   
     
     <div class="col-md-6" id="chartdiv1" style="height: 400px;"></div>
     <div class="col-md-6" id="chartdiv2" style="height: 400px;"></div>

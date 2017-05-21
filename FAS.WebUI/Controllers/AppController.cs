@@ -22,17 +22,6 @@ namespace FAS.Web.Controllers
         protected bool IsUserAuthenticated => User.Identity.IsAuthenticated;
         protected string UserName => User.Identity.Name;
         
-        protected async Task<User> GetCurrentUserIdAsync()
-        {
-            if (currentUser != null)
-            {
-                return currentUser;
-            }
-
-            currentUser = await userService.GetByIdAsync(id);
-
-            return currentUser;
-        }
         protected async Task<User> GetCurrentUserAsync()
         {
             if (currentUser != null)
