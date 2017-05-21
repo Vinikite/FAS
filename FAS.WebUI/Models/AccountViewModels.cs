@@ -152,7 +152,8 @@ namespace FAS.WebUI.Models
 
     public class ChangeUserViewModel : CreateUserViewModel
     {
+        public String Email { get; set; }
         public Guid Id { get; set; }
-        public Guid IdAddress { get; set; }
+       // public Guid IdAddress { get; set; }
     }
 }

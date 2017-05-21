@@ -12,10 +12,11 @@ using FAS.BLL;
 using FAS.Domain;
 using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
+using FAS.Web.Controllers;
 
 namespace FAS.WebUI.Controllers
 {
-    public class ScoreController : Controller
+    public class ScoreController : AppController
     {
         private readonly IScoreService ScoreService;
 
@@ -23,24 +24,19 @@ namespace FAS.WebUI.Controllers
         {
             this.ScoreService = scoreService;
         }
-
+        ChangeScoreViewModel db = new ChangeScoreViewModel();
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await ScoreService.Get().ToListAsync());
+            return View(await UserService.Get().ProjectTo<ChangeUserViewModel>().ToListAsync());
         }
-
+       
         [HttpGet]
-        public ActionResult Home()
+        public async Task<ActionResult> Create()
         {
-            return View();
-        }
-
-
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
+            var scoreE = await GetCurrentUserIdAsync();
+            var score = Mapper.Map<ChangeScoreViewModel>(scoreE);
+            return View(score);
         }
         [HttpGet]
         public ActionResult Change()
@@ -50,12 +46,20 @@ namespace FAS.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateScoreViewModel model)
+        public async Task<ActionResult> Create(ChangeScoreViewModel model)
         {
             if (ModelState.IsValid)
             {
-                await ScoreService.CreateAsync(Mapper.Map<Score>(model));
-                return RedirectToAction("Index");
+                var user = await GetCurrentUserIdAsync();
+                var score = await ScoreService.CreateAsync(Mapper.Map<Score>(model)); 
+                user.Id = model.IdUser;
+                score.LastName = model.IdStatus;
+                score.MiddleName = model.IdTypeScore;
+                score.PhoneNumber = model.IdViewScore;
+                score.AverageIncome = model.Notation;
+                score.AverageIncome = model.Balance;
+                await UserService.UpdateAsync(score);
+                return RedirectToAction("Index", "Score");
             }
 
             return View(model);

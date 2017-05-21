@@ -12,37 +12,40 @@ using FAS.BLL;
 using FAS.Domain;
 using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
+using FAS.Web.Controllers;
+using System.Collections;
 
 namespace FAS.WebUI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AppController
     {
-
-        public ActionResult IndexHome()
+        public HomeController(IUserService userService) : base(userService) { }
+        public async Task<ActionResult> IndexHome()
         {
-            return View();
+            SelectList books = new SelectList("Author", "Name");
+            ViewBag.Books = books;
+            return View(await UserService.Get().ProjectTo<ChangeUserViewModel>().ToListAsync());
         }
+        
         public ActionResult About()
         {
             return View();
         }
 
-        private readonly IUserService UserService;
 
-        public HomeController(IUserService userService)
-        {
-            this.UserService = userService;
-        }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await UserService.Get().ToListAsync());//ProjectTo<SimpleUserViewModel>().ToListAsync());
+            return View(await UserService.Get().ToListAsync());
         }
 
+       
         [HttpGet]
-        public async Task<ActionResult> Create(Guid id, Guid IdAddress)
+        public async Task<ActionResult> Create()
         {
-            var user = Mapper.Map<ChangeUserViewModel>(await UserService.GetAsync(id));
+            var userE = await GetCurrentUserAsync();
+            var user = Mapper.Map<ChangeUserViewModel>(userE);
             return View(user);
         }
 
@@ -53,34 +56,15 @@ namespace FAS.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserService.GetAsync(model.Id);
-
-                if (user != null)
-                {
-                    ModelState.AddModelError("Id", "Id = null.");
-                    return View(model);
-                }
-
-
-                user = new User()
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    MiddleName = model.MiddleName,
-                    PhoneNumber = model.PhoneNumber,
-                    AverageIncome = model.AverageIncome
-                };
-
-                var createResult = await UserService.CreateWithInfoAsync(user);
-
-                if (createResult.Succeeded)
-                {
-                    // send email to user 
-                    ViewBag.Message = "Error send email to user.";
-                }
-
-                //ModelState.AddModelError("Email", createResult.Errors.Aggregate(String.Empty, (a, i) => a += i));
-                return RedirectToAction("IndexHome");
+                var user = await GetCurrentUserAsync();
+                
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.MiddleName = model.MiddleName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.AverageIncome = model.AverageIncome;
+                await UserService.UpdateAsync(user);
+                return RedirectToAction("IndexHome", "Home");
             }
 
             return View(model);
@@ -95,9 +79,10 @@ namespace FAS.WebUI.Controllers
         }
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult> Change(Guid id)
+        public async Task<ActionResult> Change(/*Guid id*/)
         {
-            var user = Mapper.Map<ChangeUserViewModel>(await UserService.GetAsync(id));
+            var userC = await GetCurrentUserAsync();
+            var user = Mapper.Map<ChangeUserViewModel>(userC);
             return View(user);
         }
 
@@ -107,7 +92,8 @@ namespace FAS.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserService.GetAsync(model.Id);
+                var user = await GetCurrentUserAsync();
+                //var user = await UserService.GetAsync(model.Id);
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.MiddleName = model.MiddleName;
@@ -131,4 +117,6 @@ namespace FAS.WebUI.Controllers
             return View();
         }
     }
+
+
 }

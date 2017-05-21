@@ -12,10 +12,11 @@ using FAS.BLL;
 using FAS.Domain;
 using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
+using FAS.Web.Controllers;
 
 namespace FAS.WebUI.Controllers
 {
-    public class TransactionController : Controller
+    public class TransactionController : AppController
     {
         private readonly ITransactionService TransactionService;
 
@@ -27,14 +28,14 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await TransactionService.Get().ToListAsync());
+            return View(await TransactionService.Get().ProjectTo<SimpleTransactionViewModel>().ToListAsync());
         }
 
         [HttpGet]
-        public ActionResult Create(/*Guid id*/)
+        public ActionResult Create(Guid id)
         {
-            //var transaction = Mapper.Map<ChangeTransactionViewModel>(TransactionService.GetAsync(id));
-            return View(/*transaction*/);
+            var transaction = Mapper.Map<ChangeTransactionViewModel>(TransactionService.GetAsync(id));
+            return View(transaction);
         }
 
         [HttpPost]

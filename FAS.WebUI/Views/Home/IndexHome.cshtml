@@ -5,28 +5,32 @@
 
 }
 
+    <script>
+        var app = angular.module('myApp', ['ngAnimate']);
+    </script>
+
 <br /><br />
 <div class="text-info h1 caption col-md-12">система учета личных финансов</div><br /><br />
-@*@foreach (var user in Model)
+@foreach (var user in Model)
 {
-<div class="text-info h1 caption col-md-offset-5">
+<div class="text-info h1 caption col-md-3">
     @if (user.FirstName == null)
     {
-        <a class="active" href="@Url.Action("Create", "Home", new { id = user.Id })">
-            <span class="brand brand-user">Create </span>
+        <a class="active" href="@Url.Action("Create", "Home")">
+            <h5 class="brand brand-user">Create </h5>
         </a>
     }
     else
     {
         <a class="active" href="@Url.Action("Change", "Home")">
-            <span class="brand brand-user">Change </span>
+            <h5 class="brand brand-user">Change </h5>
         </a>
     }
 </div>
 
-     }*@
 
-    <div class="text-info h1 caption col-md-3">
+
+    @*<div class="text-info h1 caption col-md-3">
       <h5>  <a class="active" href="@Url.Action("Create", "Home")">
             <span class="brand brand-user">Create </span>
         </a><br />
@@ -34,11 +38,26 @@
             <span class="brand brand-user">Change </span>
         </a>
         </h5>
+    </div>*@
+    <div   class="text-info h5 caption col-md-6">
+       <h5>Дабро пожаловать @user.LastName @user.MiddleName!</h5>
+        
+        <select class="selectpicker">
+            <optgroup label="Picnic">
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+            </optgroup>
+            <optgroup label="Camping">
+                <option>Tent</option>
+                <option>Flashlight</option>
+                <option>Toilet Paper</option>
+            </optgroup>
+        </select>
+        @Html.DropDownList("Author", ViewBag.Books as SelectList)
+
     </div>
-    <div class="text-info h1 caption col-md-6">
-       <h5>Дабро пожаловать</h5>
-    </div>
-    <div class="text-info h1 caption col-md-3">
+    <div ng-hide="myCheck" class="text-info h1 caption col-md-3">
         <div id="ja-rightcol-inner" align="center">
             <div class="module-best_kurs">
                 <div>
@@ -490,3 +509,5 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
+    break;
+}

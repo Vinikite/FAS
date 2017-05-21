@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<FAS.Domain.Transaction>*@
-@model List<FAS.WebUI.Models.SimpleTransactionViewModel>
+﻿@model List<FAS.WebUI.Models.SimpleTransactionViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -17,6 +16,9 @@
             </a><br>
             <a class="active" href="@Url.Action("Home", "Score")">
                 <span class="brand brand-user">Счета </span>
+            </a><br>
+            <a class="active" href="@Url.Action("IndexHome", "Home")">
+                <span class="brand brand-user">Профиль </span>
             </a><br>
         </div>
         <div class="col-md-10">
@@ -79,7 +81,6 @@
                     </tbody>
                 </table>
             }
-
         </div>
     </div>
 </div>

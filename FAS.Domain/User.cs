@@ -14,10 +14,8 @@ namespace FAS.Domain
             Scores = new HashSet<Score>();
         }
 
-        public User(string Email,string PasswordHash, string FirstName,string LastName,string MiddleName,string UserName, double AverageIncome)
+        public User(string FirstName,string LastName,string MiddleName,string UserName, double AverageIncome)
         {
-            this.PasswordHash = PasswordHash;
-            this.Email = Email;
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.MiddleName = MiddleName;

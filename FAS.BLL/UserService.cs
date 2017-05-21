@@ -17,6 +17,7 @@ namespace FAS.BLL
         {
             User GetByEmail(string email);
             Task<User> GetByEmailAsync(string email);
+            Task<User> GetByIdAsync(Guid id);
             Task<IdentityResult> CreateWithInfoAsync(User entity);
             Task<ClaimsIdentity> CreateIdentityAsync(User user);
             Task<User> FindAsync(string userName, string password);
@@ -76,8 +77,12 @@ namespace FAS.BLL
             {
                 return await userManager.FindByEmailAsync(email);
             }
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+            return await userManager.FindByIdAsync(id);
+        }
 
-            public async Task UpdateAsync(User entity)
+        public async Task UpdateAsync(User entity)
             {
                 await userManager.UpdateAsync(entity);
             }
