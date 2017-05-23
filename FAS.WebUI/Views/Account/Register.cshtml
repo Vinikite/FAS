@@ -5,46 +5,64 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+<div class="col-md-8">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Создайте новую учетную запись.</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Создайте новую учетную запись.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        <div class="form-group  has-feedback">
+            <div class="col-md-2 control-label"><strong>Email</strong></div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "inputSuccess" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <div class="form-group  has-feedback">
+            <div class="col-md-2 control-label"><strong>Пароль</strong></div>
+            <div class="col-sm-8">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        <div class="form-group  has-feedback">
+            <div class="col-md-2 control-label"><strong>Повторите пароль</strong></div>
+            <div class="col-sm-8">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Captcha, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Captcha, null, new { @class = "text-danger" })
-        <div class="img-responsive" style="margin-top: 15px;">
-            <img src="@Url.Action("CaptchaImage", "Account")" alt="captcha" />
+        <div class="form-group has-feedback ">
+            <div class="control-label"><strong>Введите код с картинки</strong></div>
+            @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Captcha, null, new { @class = "text-danger" })
+            <div class="img-responsive" style="margin-top: 15px;">
+                <img src="@Url.Action("CaptchaImage", "Account")" alt="captcha" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Регистрация" />
+        <div class="form-group has-feedback ">
+            <div class="col-md-offset-2 col-md-8">
+                <input type="submit" class="btn btn-default" value="Регистрация" />
+            </div>
         </div>
-    </div>
-}
-
+    }
+</div>
+<div class="text-info h5 col-md-4">
+    <a>Пароль должен соответствовать следующим критериям:</a>
+    <bs-btn-group>
+        <ul>
+            <h5>Должен содержать не менее 6 символов.</h5>
+        </ul>
+        <ul>
+            <h5>Должен быть по крайней мере один небуквенный или нецифровой символ..</h5>
+        </ul>
+        <ul>
+            <h5>В пароле должна быть по крайней мере одна цифра (0–9).</h5>
+        </ul>
+        <ul>
+            <h5>В пароле должен быть по крайней мере один символ в верхнем регистре ("A"–"Z") и по крайней мере один символ в нижнем регистре ("a"–"z").</h5>
+        </ul>
+    </bs-btn-group>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

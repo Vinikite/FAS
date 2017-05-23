@@ -8,9 +8,7 @@ namespace FAS.Web.Controllers
     public class AppController : Controller
     {
         private readonly IUserService userService;
-        private readonly IScoreService scoreService;
         private User currentUser;
-
         public AppController() { }
 
         public AppController(IUserService userService)
@@ -33,7 +31,6 @@ namespace FAS.Web.Controllers
 
             return currentUser;
         }
-
         protected User GetCurrentUser()
         {
             if (currentUser != null)

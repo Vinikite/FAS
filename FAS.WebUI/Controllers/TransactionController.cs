@@ -13,16 +13,22 @@ using FAS.Domain;
 using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
 using FAS.Web.Controllers;
+using FAS.DAL;
 
 namespace FAS.WebUI.Controllers
 {
+    [Authorize]
     public class TransactionController : AppController
     {
         private readonly ITransactionService TransactionService;
+        private readonly IScoreService ScoreService;
+        private readonly IUserService userService;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService, IScoreService scoreService, IUserService userService) : base(userService)
         {
             this.TransactionService = transactionService;
+            this.ScoreService = scoreService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -31,22 +37,41 @@ namespace FAS.WebUI.Controllers
             return View(await TransactionService.Get().ProjectTo<SimpleTransactionViewModel>().ToListAsync());
         }
 
-      
+        AppDbContext db = new AppDbContext();
+        
+
         [HttpGet]
-        public ActionResult Create(Guid id)
+        public async Task<ActionResult> Create()
         {
-            var transaction = Mapper.Map<ChangeTransactionViewModel>(TransactionService.GetAsync(id));
-            return View(transaction);
+            SelectList TransactionTypes = new SelectList(db.TransactionTypes, "Id", "Name");
+            ViewBag.TransactionTypes = TransactionTypes;
+            SelectList Categories = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.Categories = Categories;
+            SelectList Banks = new SelectList(db.Banks, "Id", "Name");
+            ViewBag.Banks = Banks;
+
+            var user = await GetCurrentUserAsync();
+            SelectList Scores = new SelectList(user.Scores, "Id", "Notation");
+            ViewBag.Scores = Scores;
+            
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateTransactionViewModel model)
+        public async Task<ActionResult> Create(ChangeTransactionViewModel model)
         {
             if (ModelState.IsValid)
             {
-                await TransactionService.CreateAsync(Mapper.Map<Transaction>(model));
-                return RedirectToAction("Index");
+                var user = await GetCurrentUserAsync();
+                var commision = model.Comission;
+                SelectList Scores = new SelectList(user.Scores, "Id", "Balance");
+                //var rez = Scores - commision;
+                var transaction = new Transaction { IdTransactionType = model.IdTransactionType, IdScore = model.IdScore, IdCategory = model.IdCategory, IdBank = model.IdBank, Comission = model.Comission, Notation = model.Notation };
+                //user.Scores.
+                //db.Transactions.Add(transaction);
+                await UserService.UpdateAsync(user);
+                return RedirectToAction("Index", "Transaction");
             }
 
             return View(model);

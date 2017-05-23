@@ -28,7 +28,7 @@ namespace FAS.BLL
         {
             private readonly AppUserManager userManager;
 
-            public UserService(AppUserManager userManager)
+        public UserService(AppUserManager userManager)
             {
                 this.userManager = userManager;
             }
@@ -81,7 +81,6 @@ namespace FAS.BLL
         {
             return await userManager.FindByIdAsync(id);
         }
-
         public async Task UpdateAsync(User entity)
             {
                 await userManager.UpdateAsync(entity);

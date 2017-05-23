@@ -8,7 +8,7 @@ namespace FAS.WebUI.Infrastructure.Validators
         public CreateTrasactionViewModelValidator()
         {
             RuleFor(x => x.Comission).NotEmpty();//.Length(10, 64);
-            RuleFor(x => x.Notation).NotEmpty().GreaterThan(0).LessThan(decimal.MaxValue);
+            RuleFor(x => x.Notation).NotEmpty();
         }
     }
 }

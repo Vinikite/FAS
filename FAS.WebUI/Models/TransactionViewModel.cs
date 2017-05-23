@@ -31,7 +31,7 @@ namespace FAS.WebUI.Models
         [Display(Name = "Comission")]
         public double Comission { get; set; }
         [Display(Name = "Notation")]
-        public decimal Notation { get; set; }
+        public string Notation { get; set; }
     }
 
     public class ChangeTransactionViewModel : CreateTransactionViewModel

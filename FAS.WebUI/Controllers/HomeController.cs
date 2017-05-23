@@ -17,11 +17,21 @@ using System.Collections;
 
 namespace FAS.WebUI.Controllers
 {
+    [Authorize]
     public class HomeController : AppController
     {
         public HomeController(IUserService userService) : base(userService) { }
         public async Task<ActionResult> IndexHome()
         {
+            int hour = DateTime.Now.Hour;
+            if (hour < 7)
+            { ViewBag.Greeting = "Доброго времени суток"; }
+            if (hour > 7 && hour < 11)
+            { ViewBag.Greeting = "Доброе утро";}
+            if (hour > 11 && hour < 17)
+            { ViewBag.Greeting = "Добрый день";}
+            if (hour > 17)
+            {ViewBag.Greeting = "Добрый вечер";}
             return View(await UserService.Get().ProjectTo<ChangeUserViewModel>().ToListAsync());
         }
         

@@ -1,4 +1,4 @@
-﻿@model List<FAS.WebUI.Models.ChangeScoreViewModel>
+﻿@model List<FAS.WebUI.Models.SimpleScoreViewModel>
 @{
     ViewBag.Title = "Index"; 
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -46,14 +46,43 @@
        
 
         <div class="col-md-8">
-            <div>
-                <h4>Выберите тему:</h4>
-                <a href="#" onclick="makeCharts('light', '#ffffff');">Light</a> |
-                <a href="#" onclick="makeCharts('dark', '#282828')">Dark</a> |
-                <a href="#" onclick="makeCharts('black', '#222222')">Black</a> |
-                <a href="#" onclick="makeCharts('patterns', '#ffffff')">Patterns</a> |
-                <a href="#" onclick="makeCharts('chalk', '#282828', 'images/board.jpg')">Chalk</a>
-            </div>
+            @if (Model.Count == 0)
+            {
+                <div class="col-md-10 center-block">
+                    <div class="text-danger h3">Нет добавленных счетов</div>
+                    <img src="~/img/3.jpg" class="show" title="param"><br />
+                </div>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>Имя счета</td>
+                            <td>Вид счета</td>
+                            <td>Тип счета</td>
+                            <td>Статус</td>
+                            <td>Остаток на счете</td>
+                            <td>Дата открытия</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Score in Model)
+                        {
+                            <tr>
+                                <td>@ViewBag.Scores</td>
+                                <td>@Score.IdViewScore</td>
+                                <td>$@Score.IdTypeScore</td>
+                                <td>@Score.StatusScore</td>
+                                <td>@Score.Balance</td>
+                                <td>@Score.CreateOn</td>
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 </div>

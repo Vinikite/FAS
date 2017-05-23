@@ -17,18 +17,25 @@ using FAS.DAL;
 
 namespace FAS.WebUI.Controllers
 {
+    [Authorize]
     public class ScoreController : AppController
     {
         private readonly IScoreService ScoreService;
+        private readonly IUserService UserService;
 
-        public ScoreController(IScoreService scoreService)
+        public ScoreController(IScoreService scoreService, IUserService userService) : base(userService)
         {
             this.ScoreService = scoreService;
+            this.UserService = userService;
         }
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(await ScoreService.Get().ProjectTo<ChangeScoreViewModel>().ToListAsync());
+            var user = await GetCurrentUserAsync();
+            SelectList Scores = new SelectList(user.Scores, "Id", "Notation");
+            ViewBag.Scores = Scores;
+
+            return View(await ScoreService.Get().ProjectTo<SimpleScoreViewModel>().ToListAsync());
         }
         
 
@@ -39,30 +46,30 @@ namespace FAS.WebUI.Controllers
             return View();
         }
 
-        
+        AppDbContext db = new AppDbContext();
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            //SelectList ViewScores = new SelectList(db.ViewScores, "Id", "Name");
-            //ViewBag.ViewScores = ViewScores;
-            //SelectList TypeScores = new SelectList(db.TypeScores, "Id", "Name");
-            //ViewBag.TypeScores = TypeScores;
-            //SelectList StatusScores = new SelectList(db.StatusScores, "Id", "Name");
-            //ViewBag.StatusScores = StatusScores;
+            SelectList ViewScores = new SelectList(db.ViewScores, "Id", "Name");
+            ViewBag.ViewScores = ViewScores;
+            SelectList TypeScores = new SelectList(db.TypeScores, "Id", "Name");
+            ViewBag.TypeScores = TypeScores;
+            SelectList StatusScores = new SelectList(db.StatusScores, "Id", "Name");
+            ViewBag.StatusScores = StatusScores;
 
-            //ViewBag.Artists = new SelectList( ent.ARM.Select(w => new { id = w.id, name = w.title}), "id", "name");
-            var userE = await GetCurrentUserAsync();
-            var user = Mapper.Map<ChangeUserViewModel>(userE);
-            return View(user);
+            //var userE = await GetCurrentUserAsync();
+            //var user = Mapper.Map<ChangeScoreViewModel>(userE);
+            return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ChangeScoreViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var score = new Score { IdStatus = model.IdStatus, IdTypeScore = model.IdTypeScore, IdViewScore = model.IdViewScore };
                 var user = await GetCurrentUserAsync();
+                var score = new Score { IdUser = user.Id, IdStatus = model.IdStatus, IdTypeScore = model.IdTypeScore, IdViewScore = model.IdViewScore, Balance = model.Balance, Notation = model.Notation };
                 user.Scores.Add(score);
                 await UserService.UpdateAsync(user);
                 return RedirectToAction("Index", "Score");
