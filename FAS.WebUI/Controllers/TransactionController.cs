@@ -23,12 +23,16 @@ namespace FAS.WebUI.Controllers
         private readonly ITransactionService TransactionService;
         private readonly IScoreService ScoreService;
         private readonly IUserService userService;
+        private readonly ITransactionTypeService transactionTypeService;
 
-        public TransactionController(ITransactionService transactionService, IScoreService scoreService, IUserService userService) : base(userService)
+        public TransactionController(ITransactionService transactionService, IScoreService scoreService, IUserService userService,
+            ITransactionTypeService transactionTypeService) 
+            : base(userService)
         {
             this.TransactionService = transactionService;
             this.ScoreService = scoreService;
             this.userService = userService;
+            this.transactionTypeService = transactionTypeService;
         }
 
         [HttpGet]
@@ -64,12 +68,44 @@ namespace FAS.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 var user = await GetCurrentUserAsync();
-                var commision = model.Comission;
-                SelectList Scores = new SelectList(user.Scores, "Id", "Balance");
-                //var rez = Scores - commision;
-                var transaction = new Transaction { IdTransactionType = model.IdTransactionType, IdScore = model.IdScore, IdCategory = model.IdCategory, IdBank = model.IdBank, Comission = model.Comission, Notation = model.Notation };
-                //user.Scores.
-                //db.Transactions.Add(transaction);
+                var score = user.Scores.FirstOrDefault(x => x.Id == model.IdScore);
+
+                if (score == null)
+                {
+                    return HttpNotFound("Score not found.");
+                }
+
+                var transaction = new Transaction {
+                    IdTransactionType = model.IdTransactionType,
+                    IdBank = model.IdBank,
+                    IdCategory = model.IdCategory,
+                    Notation = model.Notation,
+                    Comission = model.Comission
+                };
+
+                var type = await transactionTypeService.GetAsync(model.IdTransactionType);
+
+                if (type == null)
+                {
+                    return HttpNotFound("Transaction type not found.");
+                }
+
+                if (type.Name.Equals("Поступление средств"))
+                {
+                    score.Balance += model.Comission;
+                }
+                else
+                {
+                    if (score.Balance < model.Comission)
+                    {
+                        throw new ArgumentException(nameof(model.Comission), "There is not enough money on the account");
+                    }
+
+                    score.Balance -= model.Comission;
+                }
+
+                score.Transactions.Add(transaction);
+
                 await UserService.UpdateAsync(user);
                 return RedirectToAction("Index", "Transaction");
             }
