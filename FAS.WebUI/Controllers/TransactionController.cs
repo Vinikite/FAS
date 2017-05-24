@@ -88,7 +88,7 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public ActionResult Change(Guid id)
         {
-            var transaction = Mapper.Map<ChangeTransactionViewModel>(TransactionService.GetAsync(id));
+            var transaction = Mapper.Map<ChangeTransactionViewModel>(TransactionService.Get(id));
             return View(transaction);
         }
 
@@ -98,7 +98,7 @@ namespace FAS.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var transaction = await TransactionService.GetAsync(model.Id);
+                var transaction = TransactionService.Get(model.Id);
                 transaction.IdTransactionType = model.IdTransactionType;
                 transaction.IdScore = model.IdScore;
                 transaction.IdCategory = model.IdCategory;

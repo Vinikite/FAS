@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FAS.Core
 {
@@ -43,9 +42,9 @@ namespace FAS.Core
             dbSet.Remove(entity);
         }
 
-        public async virtual Task<TEntity> GetAsync(TKey id)
+        public virtual TEntity Get(TKey id)
         {
-            return await dbSet.FirstOrDefaultAsync(entity => entity.Id.Equals(id));
+            return dbSet.Find(id);
         }
 
         public virtual IQueryable<TEntity> Get()
