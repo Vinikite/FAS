@@ -60,7 +60,7 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public ActionResult Change(Guid id)
         {
-            var category = Mapper.Map<ChangeCategoryViewModel>(CategoryService.GetAsync(id));
+            var category = Mapper.Map<ChangeCategoryViewModel>(CategoryService.Get(id));
             return View(category);
         }
 
@@ -70,7 +70,7 @@ namespace FAS.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var category = await CategoryService.GetAsync(model.Id);
+                var category = CategoryService.Get(model.Id);
                 category.Name = model.Name;
                 await CategoryService.UpdateAsync(category);
                 return RedirectToAction("Index");

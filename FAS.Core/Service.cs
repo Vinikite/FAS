@@ -24,9 +24,9 @@ namespace FAS.Core
             await unitOfWork.CommitAsync();
         }
 
-        public async virtual Task<TEntity> GetAsync(TKey key)
+        public virtual TEntity Get(TKey key)
         {
-            return await repository.GetAsync(key);
+            return repository.Get(key);
         }
 
         public virtual IQueryable<TEntity> Get()
@@ -42,7 +42,7 @@ namespace FAS.Core
 
         public async virtual Task DeleteAsync(TKey key)
         {
-            var entity = await GetAsync(key);
+            var entity = Get(key);
 
             if (entity == null)
             {

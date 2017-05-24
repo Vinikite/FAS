@@ -1,105 +1,109 @@
-﻿using FAS.BLL.Infrastructure;
-using FAS.Core;
+﻿using FAS.Core;
 using FAS.DAL.Identity;
 using FAS.Domain;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FAS.BLL
 {
-  
-        public interface IUserService : IService<User, Guid>
+
+    public interface IUserService : IService<User, Guid>
+    {
+        Task<User> GetAsync(Guid key);
+        User GetByEmail(string email);
+        Task<User> GetByEmailAsync(string email);
+        Task<User> GetByIdAsync(Guid id);
+        Task<IdentityResult> CreateWithInfoAsync(User entity);
+        Task<ClaimsIdentity> CreateIdentityAsync(User user);
+        Task<User> FindAsync(string userName, string password);
+        Task<IEnumerable<string>> GetRolesAsync(User user);
+    }
+
+    public class UserService : IUserService
+    {
+        private readonly AppUserManager userManager;
+
+        public UserService(AppUserManager userManager)
         {
-            User GetByEmail(string email);
-            Task<User> GetByEmailAsync(string email);
-            Task<User> GetByIdAsync(Guid id);
-            Task<IdentityResult> CreateWithInfoAsync(User entity);
-            Task<ClaimsIdentity> CreateIdentityAsync(User user);
-            Task<User> FindAsync(string userName, string password);
-            Task<IEnumerable<string>> GetRolesAsync(User user);
+            this.userManager = userManager;
         }
 
-        public class UserService : IUserService
+        public async Task CreateAsync(User entity)
         {
-            private readonly AppUserManager userManager;
+            await createWithInfoAsync(entity);
+        }
 
-            public UserService(AppUserManager userManager)
+        public async Task<IdentityResult> CreateWithInfoAsync(User entity)
+        {
+            return await createWithInfoAsync(entity);
+        }
+
+        private async Task<IdentityResult> createWithInfoAsync(User entity)
+        {
+            return await userManager.CreateAsync(entity, entity.PasswordHash);
+        }
+
+        public async Task DeleteAsync(Guid key)
+        {
+            var entity = await GetAsync(key);
+
+            if (entity != null)
             {
-                this.userManager = userManager;
+                await userManager.DeleteAsync(entity);
             }
+        }
 
-            public async Task CreateAsync(User entity)
-            {
-                await createWithInfoAsync(entity);
-            }
+        public IQueryable<User> Get()
+        {
+            return userManager.Users;
+        }
 
-            public async Task<IdentityResult> CreateWithInfoAsync(User entity)
-            {
-                return await createWithInfoAsync(entity);
-            }
+        public async Task<User> GetAsync(Guid key)
+        {
+            return await userManager.FindByIdAsync(key);
+        }
 
-            private async Task<IdentityResult> createWithInfoAsync(User entity)
-            {
-                return await userManager.CreateAsync(entity, entity.PasswordHash);
-            }
+        public User Get(Guid key)
+        {
+            return userManager.FindById(key);
+        }
 
-            public async Task DeleteAsync(Guid key)
-            {
-                var entity = await GetAsync(key);
+        public User GetByEmail(string email)
+        {
+            return userManager.FindByEmail(email);
+        }
 
-                if (entity != null)
-                {
-                    await userManager.DeleteAsync(entity);
-                }
-            }
-
-            public IQueryable<User> Get()
-            {
-                return userManager.Users;
-            }
-
-            public async Task<User> GetAsync(Guid key)
-            {
-                return await userManager.FindByIdAsync(key);
-            }
-
-            public User GetByEmail(string email)
-            {
-                return userManager.FindByEmail(email);
-            }
-
-            public async Task<User> GetByEmailAsync(string email)
-            {
-                return await userManager.FindByEmailAsync(email);
-            }
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await userManager.FindByEmailAsync(email);
+        }
         public async Task<User> GetByIdAsync(Guid id)
         {
             return await userManager.FindByIdAsync(id);
         }
 
         public async Task UpdateAsync(User entity)
-            {
-                await userManager.UpdateAsync(entity);
-            }
+        {
+            await userManager.UpdateAsync(entity);
+        }
 
-            public async Task<ClaimsIdentity> CreateIdentityAsync(User user)
-            {
-                return await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            }
+        public async Task<ClaimsIdentity> CreateIdentityAsync(User user)
+        {
+            return await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+        }
 
-            public async Task<User> FindAsync(string userName, string password)
-            {
-                return await userManager.FindAsync(userName, password);
-            }
+        public async Task<User> FindAsync(string userName, string password)
+        {
+            return await userManager.FindAsync(userName, password);
+        }
 
-            public async Task<IEnumerable<string>> GetRolesAsync(User user)
-            {
-                return await userManager.GetRolesAsync(user.Id);
-            }
+        public async Task<IEnumerable<string>> GetRolesAsync(User user)
+        {
+            return await userManager.GetRolesAsync(user.Id);
         }
     }
+}

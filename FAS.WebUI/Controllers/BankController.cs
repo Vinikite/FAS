@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using FluentValidation.Attributes;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using FAS.BLL;
 using FAS.Domain;
-using FAS.WebUI.Infrastructure.Validators;
 using FAS.WebUI.Models;
 
 namespace FAS.WebUI.Controllers
@@ -65,7 +60,7 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public ActionResult Change(Guid id)
         {
-            var bank = Mapper.Map<ChangeBankViewModel>(BankService.GetAsync(id));
+            var bank = Mapper.Map<ChangeBankViewModel>(BankService.Get(id));
             return View(bank);
         }
 
@@ -75,7 +70,7 @@ namespace FAS.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var bank = await BankService.GetAsync(model.Id);
+                var bank = BankService.Get(model.Id);
                 bank.Name = model.Name;
                 await BankService.UpdateAsync(bank);
                 return RedirectToAction("Index");
