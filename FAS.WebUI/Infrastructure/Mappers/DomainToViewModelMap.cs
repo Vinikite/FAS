@@ -15,6 +15,11 @@ namespace FAS.WebUI.Infrastructure.Mappers
             config.CreateMap<Score, SimpleScoreViewModel>();
             config.CreateMap<Score, CreateScoreViewModel>();
             config.CreateMap<Score, ChangeScoreViewModel>();
+            config.CreateMap<Score, ScoreItemModel>()
+                    .ForMember(x => x.Name, option => option.MapFrom(f => f.Notation))
+                    .ForMember(x => x.ViewType, option => option.MapFrom(f => f.ViewScore.Name))
+                    .ForMember(x => x.Type, option => option.MapFrom(f => f.TypeScore.Name))
+                    .ForMember(x => x.Status, option => option.MapFrom(x => x.StatusScore.Name));
 
             config.CreateMap<TypeScore, SimpleTypeOfScoreViewModel>();
             config.CreateMap<TypeScore, CreateTypeOfScoreViewModel>();
@@ -39,6 +44,11 @@ namespace FAS.WebUI.Infrastructure.Mappers
             config.CreateMap<Transaction, SimpleTransactionViewModel>();
             config.CreateMap<Transaction, CreateTransactionViewModel>();
             config.CreateMap<Transaction, ChangeTransactionViewModel>();
+            config.CreateMap<Transaction, TransactionItemModel>()
+                    .ForMember(x => x.Type, option => option.MapFrom(f => f.TransactionType.Name))
+                    .ForMember(x => x.Category, option => option.MapFrom(f => f.Category.Name))
+                    .ForMember(x => x.Score, option => option.MapFrom(f => f.Score.Notation))
+                    .ForMember(x => x.Bank, option => option.MapFrom(f => f.Bank.Name));
 
             config.CreateMap<TransactionType, SimpleTransactionTypeViewModel>();
             config.CreateMap<TransactionType, CreateTransactionTypeViewModel>();

@@ -25,6 +25,17 @@ namespace FAS.WebUI.Models
         public DateTime? DeleteOn { get; set; }
     }
 
+    public class ScoreItemModel
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string ViewType { get; set; }
+        public string Type { get; set; }
+        public string Status { get; set; }
+        public string Balance { get; set; }
+        public DateTime CreatedOn { get; set; }
+    }
+
     public class CreateScoreViewModel
     {
         [Display(Name = "Balance")]

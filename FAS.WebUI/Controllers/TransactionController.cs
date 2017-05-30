@@ -22,29 +22,71 @@ namespace FAS.WebUI.Controllers
     {
         private readonly ITransactionService TransactionService;
         private readonly IScoreService ScoreService;
-        private readonly IUserService userService;
         private readonly ITransactionTypeService transactionTypeService;
+        private readonly ICategoryService categoryService;
 
         public TransactionController(ITransactionService transactionService, IScoreService scoreService, IUserService userService,
-            ITransactionTypeService transactionTypeService) 
+            ITransactionTypeService transactionTypeService, ICategoryService categoryService) 
             : base(userService)
         {
             this.TransactionService = transactionService;
             this.ScoreService = scoreService;
-            this.userService = userService;
             this.transactionTypeService = transactionTypeService;
+            this.categoryService = categoryService;
         }
 
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            SelectList Scores = new SelectList(db.Scores, "Id", "Name");
-            ViewBag.Scores = Scores;
-            SelectList Categories = new SelectList(db.Categories, "Id", "Name");
-            ViewBag.Categories = Categories;
+            var user = await GetCurrentUserAsync();
+            var scoresList = user.Scores.Select(x => new SelectListItem { Text = x.Notation, Value = x.Notation }).ToList();
+            var categories = categoryService.Get().Select(x => new { Id = x.Id, Val = x.Name }).ToList();
 
-            return View(await TransactionService.Get().ProjectTo<SimpleTransactionViewModel>().ToListAsync());
+            categories.Add(new { Id = default(Guid), Val = "Не учитывать" });
+
+            var categoriesList = categories.Select(x => new SelectListItem { Text = x.Val, Value = x.Id.ToString() }).ToList();
+
+            categoriesList.First().Selected = true;
+            if (scoresList.Count > 0)
+            {
+                scoresList[0].Selected = true;
+            }
+
+            return View(Tuple.Create(scoresList, categoriesList));
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<PartialViewResult> List(string score, DateTime? start, DateTime? end, Guid category)
+        {
+            var user = await GetCurrentUserAsync();
+            var userScore = user.Scores.FirstOrDefault(x => x.Notation == score);
+
+            if (userScore == null)
+            {
+                return PartialView("NotFoundScore");
+            }
+
+            var transactions = userScore.Transactions.ToArray();
+
+            if (start != null)
+            {
+                transactions = transactions.Where(x => x.CreatedOn >= start).ToArray();
+            }
+
+            if (end != null)
+            {
+                transactions = transactions.Where(x => x.CreatedOn <= end).ToArray();
+            }
+
+            if (category != default(Guid))
+            {
+                transactions = transactions.Where(x => x.IdCategory == category).ToArray();
+            }
+
+            return PartialView(Mapper.Map<List<TransactionItemModel>>(transactions));
+        }
+
 
         AppDbContext db = new AppDbContext();
         

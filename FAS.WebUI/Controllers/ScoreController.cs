@@ -21,24 +21,23 @@ namespace FAS.WebUI.Controllers
     public class ScoreController : AppController
     {
         private readonly IScoreService ScoreService;
-        private readonly IUserService UserService;
 
         public ScoreController(IScoreService scoreService, IUserService userService) : base(userService)
         {
             this.ScoreService = scoreService;
-            this.UserService = userService;
         }
+
         [HttpGet]
         public async Task<ActionResult> Index()
         {
             var user = await GetCurrentUserAsync();
-            SelectList Scores = new SelectList(user.Scores, "Id", "Notation");
-            ViewBag.Scores = Scores;
+            var model = ScoreService.Get()
+                                    .Where(x => x.IdUser == user.Id)
+                                    .ProjectTo<ScoreItemModel>()
+                                    .ToListAsync();
 
-            return View(await ScoreService.Get().ProjectTo<SimpleScoreViewModel>().ToListAsync());
+            return View(await model);
         }
-        
-
        
         [HttpGet]
         public ActionResult Change()
@@ -46,10 +45,11 @@ namespace FAS.WebUI.Controllers
             return View();
         }
 
-        AppDbContext db = new AppDbContext();
         [HttpGet]
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
+            var db = (AppDbContext)DependencyResolver.Current.GetService<DbContext>(); // !!!!!
+
             SelectList ViewScores = new SelectList(db.ViewScores, "Id", "Name");
             ViewBag.ViewScores = ViewScores;
             SelectList TypeScores = new SelectList(db.TypeScores, "Id", "Name");

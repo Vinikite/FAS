@@ -28,6 +28,18 @@ namespace FAS.WebUI.Models
         public DateTime? DeleteOn { get; set; }
     }
 
+    public class TransactionItemModel
+    {
+        public Guid Id { get; set; }
+        public string Notation { get; set; }
+        public double Comission { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string Type { get; set; }
+        public string Category { get; set; }
+        public string Score { get; set; }
+        public string Bank { get; set; }
+    }
+
     public class CreateTransactionViewModel
     {
         [Display(Name = "Comission")]
