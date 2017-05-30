@@ -60,7 +60,7 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public ActionResult Change(Guid id)
         {
-            var score = Mapper.Map<ChangeScoreViewModel>(ScoreService.GetAsync(id));
+            var score = Mapper.Map<ChangeScoreViewModel>(ScoreService.Get(id));
             return View(score);
         }
 
@@ -70,7 +70,7 @@ namespace FAS.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var score = await ScoreService.GetAsync(model.Id);
+                var score = ScoreService.Get(model.Id);
                 score.Balance = model.Balance;
                 score.Notation = model.Notation;
                 await ScoreService.UpdateAsync(score);
