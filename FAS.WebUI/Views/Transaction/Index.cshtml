@@ -17,6 +17,12 @@
             <a class="active" href="@Url.Action("Create", "Category")">
                 <span class="brand brand-user">Добавить новую категорию </span>
             </a><br>
+            <a class="active" href="@Url.Action("Create", "MyGoals")">
+                <span class="brand brand-user">Добавить цель </span>
+            </a><br> 
+            <a class="active" href="@Url.Action("Index", "MyGoals")">
+                <span class="brand brand-user">Список целей </span>
+            </a><br> 
             <a class="active" href="@Url.Action("Index", "Score")">
                 <span class="brand brand-user">Счета </span>
             </a><br>
@@ -34,15 +40,17 @@
                     }
                     else
                     {
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>Comission</td>
-                                <td>Notation</td>
-                                <td>CreateOn</td>
-                                <td>ModifyOn</td>
-                                <td>IsDeleted</td>
-                                <td>DeleteOn</td>
+                                <td>Примечание</td>
+                                <td>Сумма</td>
+                                <td>Дата</td>
+                                <td>Тип транзакции</td>
+                                <td>Категория</td>
+                                <td>Счет</td>
+                                <td>Банк</td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -50,12 +58,13 @@
                             @foreach (var Transaction in Model)
                             {
                                 <tr>
-                                    <td>@Transaction.Comission</td>
-                                    <td>$@Transaction.Notation</td>
+                                    <td>@Transaction.Notation</td>
+                                    <td>$@Transaction.Comission</td>
                                     <td>@Transaction.CreateOn</td>
-                                    <td>@Transaction.ModifyOn</td>
-                                    <td>@Transaction.IsDeleted</td>
-                                    <td>@Transaction.DeleteOn</td>
+                                    <td>@Transaction.IdTransactionType</td>
+                                    <td>@Transaction.IdCategory</td>
+                                    <td>@Transaction.IdScore</td>
+                                    <td>@Transaction.IdBank</td>
                                     <td>
                                         @if (!Transaction.IsDeleted)
                                         {
@@ -65,11 +74,6 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
 
-                                                    <li>
-                                                        <a href="@Url.Action("Change", "Transaction", new { id = Transaction.Id })">
-                                                            <span class="glyphicon glyphicon-pencil"></span> Change
-                                                        </a>
-                                                    </li>
                                                     @if (HttpContext.Current.Request.IsAuthenticated)
                                                     {
                                                         <li>

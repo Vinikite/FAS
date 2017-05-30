@@ -28,10 +28,10 @@ namespace FAS.WebUI.Controllers
             { ViewBag.Greeting = "Доброго времени суток"; }
             if (hour > 7 && hour < 11)
             { ViewBag.Greeting = "Доброе утро";}
-            if (hour > 11 && hour < 17)
+            if (hour > 11 && hour < 20)
             { ViewBag.Greeting = "Добрый день";}
-            if (hour > 17)
-            {ViewBag.Greeting = "Добрый вечер";}
+            //if (hour > 17)
+            //{ViewBag.Greeting = hour/*"Добрый вечер"*/; }
             return View(await UserService.Get().ProjectTo<ChangeUserViewModel>().ToListAsync());
         }
         

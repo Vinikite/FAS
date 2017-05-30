@@ -91,7 +91,6 @@ namespace FAS.DAL
             {
                 new TransactionType("Поступление средств"),
                 new TransactionType("Снятие со счета"),
-                new TransactionType("Выписка"),
             };
             context.TransactionTypes.AddRange(transactionType);
             context.SaveChanges();

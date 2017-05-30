@@ -95,28 +95,28 @@
                 type: "pie",
                 theme: theme,
                 dataProvider: [{
-                    "country": "Czech Republic",
+                    "Category": "Автомобиль",
                     "litres": 156.9
                 }, {
-                    "country": "Ireland",
+                    "Category": "Аренда жилья",
                     "litres": 131.1
                 }, {
-                    "country": "Germany",
+                    "Category": "Досуг и отдых",
                     "litres": 115.8
                 }, {
-                    "country": "Australia",
+                    "Category": "дежда, обувь, аксессуары",
                     "litres": 109.9
                 }, {
-                    "country": "Austria",
+                    "Category": "Питание",
                     "litres": 108.3
                 }, {
-                    "country": "UK",
+                    "Category": "Связь, ТВ и интернет",
                     "litres": 65
                 }, {
-                    "country": "Belgium",
+                    "Category": "Уход за собой",
                     "litres": 50
                 }],
-                titleField: "country",
+                titleField: "Category",
                 valueField: "litres",
                 balloonText: "[[title]]<br><b>[[value]]</b> ([[percents]]%)",
                 legend: {
@@ -130,12 +130,21 @@
 
     </script>
 </head>
+<nav class="navmenu navmenu-default navmenu-fixed-left" role="navigation">
+    <h2>Статистика</h2>
+</nav>
 <div>
     <br />
    
     
     <div class="col-md-6" id="chartdiv1" style="height: 400px;"></div>
     <div class="col-md-6" id="chartdiv2" style="height: 400px;"></div>
+    <div>
+        <img src="@Url.Action("GetChart")" />
+    </div>
+    <div class="col-md-12">
+        <img src="@Url.Action("CreateChart")" />
+    </div>
 </div>
    
 

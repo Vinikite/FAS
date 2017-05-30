@@ -92,6 +92,12 @@ namespace FAS.WebUI.Controllers
         {
             return View();
         }
+        
+             [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
         [Authorize]
         [ClaimPermission(Target.Account, Permission.Delete)]
         async public Task<ActionResult> Claims()

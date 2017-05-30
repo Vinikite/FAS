@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Bank.cs" />
+    <Compile Include="MyGoals.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />

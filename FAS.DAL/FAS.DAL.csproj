@@ -61,6 +61,7 @@
     <Compile Include="Configurations\AdressConfig.cs" />
     <Compile Include="Configurations\AppEntityConfig.cs" />
     <Compile Include="Configurations\BankConfig.cs" />
+    <Compile Include="Configurations\MyGoalsConfig.cs" />
     <Compile Include="Configurations\CategoryConfig.cs" />
     <Compile Include="Configurations\ScoreConfig.cs" />
     <Compile Include="Configurations\StatusScoreConfig.cs" />

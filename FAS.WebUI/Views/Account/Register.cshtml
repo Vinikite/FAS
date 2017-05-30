@@ -32,13 +32,15 @@
             </div>
         </div>
         <div class="form-group has-feedback ">
-            <div class="control-label"><strong>Введите код с картинки</strong></div>
-            @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Captcha, null, new { @class = "text-danger" })
-            <div class="img-responsive" style="margin-top: 15px;">
-                <img src="@Url.Action("CaptchaImage", "Account")" alt="captcha" />
+            <div class="col-md-2 control-label"><strong>Введите код с картинки</strong></div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Captcha, null, new { @class = "text-danger" })
+                <div class="img-responsive" style="margin-top: 15px;">
+                    <img src="@Url.Action("CaptchaImage", "Account")" alt="captcha" />
+                </div>
+            </div><br />
             </div>
-        </div>
         <div class="form-group has-feedback ">
             <div class="col-md-offset-2 col-md-8">
                 <input type="submit" class="btn btn-default" value="Регистрация" />

@@ -20,6 +20,7 @@ namespace FAS.DAL
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<MyGoals> MyGoalss { get; set; }
         public DbSet<Score> Scores { get; set; }
         public DbSet<StatusScore> StatusScores { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
@@ -35,6 +36,7 @@ namespace FAS.DAL
             modelBuilder.Configurations.Add(new AdressConfig());
             modelBuilder.Configurations.Add(new BankConfig());
             modelBuilder.Configurations.Add(new CategoryConfig());
+            modelBuilder.Configurations.Add(new MyGoalsConfig());
             modelBuilder.Configurations.Add(new ScoreConfig());
             modelBuilder.Configurations.Add(new StatusScoreConfig());
             modelBuilder.Configurations.Add(new TransactionConfig());

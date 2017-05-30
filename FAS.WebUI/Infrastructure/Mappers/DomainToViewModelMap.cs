@@ -32,6 +32,10 @@ namespace FAS.WebUI.Infrastructure.Mappers
             config.CreateMap<Category, CreateCategoryViewModel>();
             config.CreateMap<Category, ChangeCategoryViewModel>();
 
+            config.CreateMap<MyGoals, SimpleMyGoalsViewModel>();
+            config.CreateMap<MyGoals, CreateMyGoalsViewModel>();
+            config.CreateMap<MyGoals, ChangeMyGoalsViewModel>();
+
             config.CreateMap<Transaction, SimpleTransactionViewModel>();
             config.CreateMap<Transaction, CreateTransactionViewModel>();
             config.CreateMap<Transaction, ChangeTransactionViewModel>();

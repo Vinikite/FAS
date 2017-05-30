@@ -38,6 +38,11 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            SelectList Scores = new SelectList(db.Scores, "Id", "Name");
+            ViewBag.Scores = Scores;
+            SelectList Categories = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.Categories = Categories;
+
             return View(await TransactionService.Get().ProjectTo<SimpleTransactionViewModel>().ToListAsync());
         }
 
@@ -72,7 +77,7 @@ namespace FAS.WebUI.Controllers
 
                 if (score == null)
                 {
-                    return HttpNotFound("Score not found.");
+                    return HttpNotFound("Счет не найден");
                 }
 
                 var transaction = new Transaction {
@@ -83,11 +88,11 @@ namespace FAS.WebUI.Controllers
                     Comission = model.Comission
                 };
 
-                var type = await transactionTypeService.GetAsync(model.IdTransactionType);
+                var type = transactionTypeService.Get(model.IdTransactionType);
 
                 if (type == null)
                 {
-                    return HttpNotFound("Transaction type not found.");
+                    return HttpNotFound("Тип транзакции не найден.");
                 }
 
                 if (type.Name.Equals("Поступление средств"))
@@ -98,7 +103,7 @@ namespace FAS.WebUI.Controllers
                 {
                     if (score.Balance < model.Comission)
                     {
-                        throw new ArgumentException(nameof(model.Comission), "There is not enough money on the account");
+                        throw new ArgumentException(nameof(model.Comission), "На счете недостаточно денег");
                     }
 
                     score.Balance -= model.Comission;
@@ -124,6 +129,13 @@ namespace FAS.WebUI.Controllers
         [HttpGet]
         public ActionResult Change(Guid id)
         {
+            SelectList TransactionTypes = new SelectList(db.TransactionTypes, "Id", "Name");
+            ViewBag.TransactionTypes = TransactionTypes;
+            SelectList Categories = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.Categories = Categories;
+            SelectList Banks = new SelectList(db.Banks, "Id", "Name");
+            ViewBag.Banks = Banks;
+
             var transaction = Mapper.Map<ChangeTransactionViewModel>(TransactionService.Get(id));
             return View(transaction);
         }
@@ -135,6 +147,8 @@ namespace FAS.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 var transaction = TransactionService.Get(model.Id);
+                
+
                 transaction.IdTransactionType = model.IdTransactionType;
                 transaction.IdScore = model.IdScore;
                 transaction.IdCategory = model.IdCategory;

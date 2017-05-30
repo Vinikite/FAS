@@ -1,6 +1,6 @@
-﻿@model List<FAS.WebUI.Models.SimpleScoreViewModel>
+﻿@model List<FAS.WebUI.Models.SimpleMyGoalsViewModel>
 @{
-    ViewBag.Title = "Index"; 
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,28 +8,28 @@
 
     <div class="row-fluid">
         <nav class="navmenu navmenu-default navmenu-fixed-left" role="navigation">
-            <h2>Счета</h2>
+            <h2>Цели</h2>
         </nav>
         <div class="navmenu-fixed-left col-lg-4 navbar-fixed">
             <a class="active" href="@Url.Action("Create", "Score")">
                 <span class="brand brand-user">Добавить лицевой счет </span>
             </a><br>
-            <a class="active" href="@Url.Action("Change", "Score")">
-                <span class="brand brand-user">Изменить лицевой счет </span>
+            <a class="active" href="@Url.Action("Create", "MyGoals")">
+                <span class="brand brand-user">Добавить цель </span>
             </a><br>
             <a class="active" href="@Url.Action("IndexHome", "Home")">
                 <span class="brand brand-user">Профиль </span>
             </a><br>
         </div>
 
-       
+
 
         <div class="col-md-8">
             @if (Model.Count == 0)
             {
                 <div class="col-md-10 center-block">
-                    <div class="text-danger h3">Нет добавленных счетов</div>
-                    <img src="~/img/Банковский-счет-2.jpg" class="show" title="param"><br />
+                    <div class="text-danger h3">Нет добавленных целей</div>
+                    <img src="~/img/goal1.jpg" class="show" title="param"><br />
                 </div>
             }
             else
@@ -37,27 +37,22 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <td>Имя счета</td>
-                            <td>Вид счета</td>
-                            <td>Тип счета</td>
-                            <td>Статус</td>
-                            <td>Остаток на счете</td>
-                            <td>Дата открытия</td>
+                            <td>Имя цели</td>
+                            <td>Сколько надо денег до цели</td>
+                            <td>Время добовления</td>
+                            
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var Score in Model)
+                        @foreach (var MyGoals in Model)
                         {
                             <tr>
-                                <td>@Score.Notation</td>
-                                <td>@Score.IdViewScore</td>
-                                <td>$@Score.IdTypeScore</td>
-                                <td>@Score.IdStatus</td>
-                                <td>@Score.Balance</td>
-                                <td>@Score.CreateOn</td>
+                                <td>@MyGoals.Name</td>
+                                <td>@MyGoals.Price</td>
+                                <td>@MyGoals.CreateOn</td>
                                 <td>
-                                    @if (!Score.IsDeleted)
+                                    @if (!MyGoals.IsDeleted)
                                     {
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,7 +63,7 @@
                                                 @if (HttpContext.Current.Request.IsAuthenticated)
                                                 {
                                                     <li>
-                                                        <a href="@Url.Action("Delete", "Score", new { id = Score.Id })">
+                                                        <a href="@Url.Action("Delete", "MyGoals", new { id = MyGoals.Id })">
                                                             <span class="glyphicon glyphicon-floppy-remove"></span> Remove
                                                         </a>
                                                     </li>

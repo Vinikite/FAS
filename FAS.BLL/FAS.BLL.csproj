@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AddressService.cs" />
     <Compile Include="BankService.cs" />
+    <Compile Include="MyGoalsService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

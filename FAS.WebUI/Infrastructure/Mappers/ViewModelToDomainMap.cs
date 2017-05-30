@@ -19,8 +19,10 @@ namespace FAS.WebUI.Infrastructure.Mappers
             config.CreateMap<CreateStatusScoreViewModel, StatusScore>()
                     .IgnoreProperty(m => m.Id);
             config.CreateMap<CreateViewScoreViewModel, ViewScore>()
-                    .IgnoreProperty(m => m.Id);
+                    .IgnoreProperty(m => m.Id); 
             config.CreateMap<CreateCategoryViewModel, Category>()
+                    .IgnoreProperty(m => m.Id);
+            config.CreateMap<CreateMyGoalsViewModel, MyGoals>()
                     .IgnoreProperty(m => m.Id);
             config.CreateMap<CreateTransactionViewModel, Transaction>()
                     .IgnoreProperty(m => m.Id);
