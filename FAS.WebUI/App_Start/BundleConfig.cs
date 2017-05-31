@@ -32,6 +32,15 @@ namespace FAS.WebUI
                       //"~/Content/kendo/kendo.common-bootstrap.min.css",
                       //"~/Content/kendo/kendo.bootstrap.min.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/kendo").Include(
+                      "~/Content/kendo/kendo.common-bootstrap.min.css",
+                      "~/Content/kendo/kendo.bootstrap.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                      "~/Scripts/kendo/kendo.all.min.js",
+                      "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+
             bundles.Add(new ScriptBundle("~/js/app").Include(
 
                 //"~/scripts/app/controllers/HomeController.js",
