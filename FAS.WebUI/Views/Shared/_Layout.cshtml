@@ -15,6 +15,7 @@
     <title>amCharts examples</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/Content/kendo")
     <script src="~/amcharts/amcharts.js" type="text/javascript"></script>
     <script src="~/amcharts/serial.js" type="text/javascript"></script>
     <script src="~/amcharts/pie.js" type="text/javascript"></script>
@@ -23,6 +24,8 @@
     <script src="~/amcharts/themes/black.js" type="text/javascript"></script>
     <script src="~/amcharts/themes/chalk.js" type="text/javascript"></script>
     <script src="~/amcharts/themes/patterns.js" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendo")
 </head>
 
 <body ng-app="myApp">
@@ -116,7 +119,7 @@
     <footer class="container">
         <p>&copy; @DateTime.Now.Year – FAS </p>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
