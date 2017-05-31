@@ -42,7 +42,7 @@ namespace FAS.WebUI.Controllers
             var scoresList = user.Scores.Select(x => new SelectListItem { Text = x.Notation, Value = x.Notation }).ToList();
             var categories = categoryService.Get().Select(x => new { Id = x.Id, Val = x.Name }).ToList();
 
-            categories.Add(new { Id = default(Guid), Val = "Не учитывать" });
+            categories.Insert(0, new { Id = default(Guid), Val = "Не учитывать" });
 
             var categoriesList = categories.Select(x => new SelectListItem { Text = x.Val, Value = x.Id.ToString() }).ToList();
 

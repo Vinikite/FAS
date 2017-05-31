@@ -22,10 +22,15 @@ namespace FAS.WebUI
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      //"~/Scripts/kendo/kendo.all.min.js",
+                      //"~/Scripts/kendo/kendo.aspnetmvc.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      //"~/Content/jasny-bootstrap.min.css",
+                      //"~/Content/kendo/kendo.common-bootstrap.min.css",
+                      //"~/Content/kendo/kendo.bootstrap.min.css",
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/js/app").Include(
 
