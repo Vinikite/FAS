@@ -3,7 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <head>
 
     <script>
@@ -135,17 +134,35 @@
 </nav>
 <div>
     <br />
-   
-    
     <div class="col-md-6" id="chartdiv1" style="height: 400px;"></div>
     <div class="col-md-6" id="chartdiv2" style="height: 400px;"></div>
-    <div>
-        <img src="@Url.Action("GetChart")" />
-    </div>
-    <div class="col-md-12">
-        <img src="@Url.Action("CreateChart")" />
+
+        @model List<ChangeTransactionViewModel>
+    <div class="demo-section k-content wide">
+        @(Html.Kendo().Chart(Model)
+        .Name("chart")
+        .Title("Break-up of Spain Electricity Production for 2008")
+        .Legend(legend => legend
+            .Position(ChartLegendPosition.Bottom)
+        )
+        .SeriesColors(new string[] { "#42a7ff", "#666666", "#999999", "#cccccc" })
+        .Series(series =>
+        {
+            series.Donut(
+                model => model.Notation,
+                model => model.Comission,
+                null, // Color expression is omitted
+                model => model.Explode
+            );
+        })
+
+        .Tooltip(tooltip => tooltip.
+            Template("${ category } - ${ value }%").Visible(true)
+        )
+        )
     </div>
 </div>
+
    
 
 
