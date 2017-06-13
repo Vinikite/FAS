@@ -531,6 +531,7 @@
     <Compile Include="App_Start\Startup.FluentValidation.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\ChartDataRepository.cs" />
     <Compile Include="Controllers\MyGoalsController.cs" />
     <Compile Include="Infrastructure\AccessRules.cs" />
     <Compile Include="Infrastructure\ClaimEnums.cs" />
@@ -3159,7 +3160,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5110</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4261/</IISUrl>
+          <IISUrl>http://localhost:5110/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
