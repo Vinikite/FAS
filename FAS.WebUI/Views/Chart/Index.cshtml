@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    @(Html.Kendo().Chart<ChartModel>()
+        .Name("CostByCategory")
+        .Title(x => x.Text("chart of expenses by category (edit this text)").Position(ChartTitlePosition.Top))
+        .DataSource(x => x.Read(r => r.Action("CostByCategory", "Chart")))
+        .Legend(x => x.Visible(true).Position(ChartLegendPosition.Bottom))
+        .ChartArea(x => x.Background("transparent"))
+        .Series(x => x.Pie(m => m.Value, m => m.Category).Padding(0).StartAngle(40))
+        .Tooltip(x => x.Visible(true).Template("#= category # — #= value #$"))
+
+
+    )
+</div>
+<div class="row">
+    @(Html.Kendo().Chart<ChartModel>()
+        .Name("TransactionGroupByBank")
+        .Title(x => x.Text("Transaction group by bank").Position(ChartTitlePosition.Top))
+        .DataSource(x => x.Read(r => r.Action("TransactionGroupByBank", "Chart")))
+        .Legend(x => x.Visible(true).Position(ChartLegendPosition.Bottom))
+        .ChartArea(x => x.Background("transparent"))
+        .Series(x => x.Column(m => m.Value))
+        .CategoryAxis(x => x.Categories(m => m.Category)
+                            .MajorGridLines(l => l.Visible(false))
+                            .Labels(l => l.Rotation(-90)))
+        .Tooltip(x => x.Visible(true).Template("В банке #= category# совершено #= value# транзакций"))
+
+    
+    )
+</div>
