@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FAS.WebUI.Models;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using FluentValidation.Attributes;
-using System.Collections.Generic;
-using System.Data.Entity;
 using FAS.BLL;
 using FAS.WebUI.Infrastructure;
 using FAS.Domain;
-using FAS.WebUI.Infrastructure.Validators;
 using System.Drawing.Imaging;
 
 namespace FAS.WebUI.Controllers
@@ -98,17 +90,7 @@ namespace FAS.WebUI.Controllers
         {
             return View();
         }
-        [Authorize]
-        [ClaimPermission(Target.Account, Permission.Delete)]
-        async public Task<ActionResult> Claims()
-        {
-            var user = await userService.GetByEmailAsync(HttpContext.User.Identity.Name);
 
-            return View(await userService.CreateIdentityAsync(user));
-        }
-
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -129,7 +111,6 @@ namespace FAS.WebUI.Controllers
                         ModelState.AddModelError("Email", "Пользователь с таким email уже существует.");
                         return View(model);
                     }
-
 
                     user = new User()
                     {
@@ -157,17 +138,12 @@ namespace FAS.WebUI.Controllers
             return View(model);
         }
 
-        //
-        //
-        // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
