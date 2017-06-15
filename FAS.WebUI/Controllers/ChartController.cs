@@ -51,7 +51,23 @@ namespace FAS.WebUI.Controllers
             return Json(dbGroup.OrderBy(x => x.Category), JsonRequestBehavior.DenyGet);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> IncomeExpensesGroup()
+        {
+            var res = from tr in GetAllTransactions(await GetCurrentUserAsync())
+                                .AsEnumerable()
+                      group tr by tr.CreatedOn.Month into gr
+                      select new StackChartModel
+                      {
+                          Category = gr.Key.ToString(),
+                          Expenses = gr.Where(t => t.TransactionType.Name.Equals("Снятие со счета"))
+                                        .Sum(t => t.Comission),
+                          Incomes = gr.Where(t => t.TransactionType.Name.Equals("Поступление средств"))
+                                       .Sum(t => t.Comission)
+                      };
 
+            return Json(res, JsonRequestBehavior.DenyGet);
+        }
 
         private IEnumerable<Transaction> GetAllTransactions(User user)
         {

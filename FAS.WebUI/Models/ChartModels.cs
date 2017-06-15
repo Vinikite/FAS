@@ -10,4 +10,11 @@ namespace FAS.WebUI.Models
         public int Value { get; set; }
         public string Category { get; set; }
     }
+
+    public class StackChartModel
+    {
+        public string Category { get; set; }
+        public double Incomes { get; set; }
+        public double Expenses { get; set; }
+    }
 }

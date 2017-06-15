@@ -34,3 +34,20 @@
     
     )
 </div>
+
+<div class="row">
+    @(Html.Kendo().Chart<StackChartModel>()
+        .Name("IncomeExpensesGroup")
+        .Title(x => x.Text("График расходов и доходов").Position(ChartTitlePosition.Top))
+        .DataSource(x => x.Read(r => r.Action("IncomeExpensesGroup", "Chart")))
+        .Legend(x => x.Visible(true).Position(ChartLegendPosition.Bottom))
+        .ChartArea(x => x.Background("transparent"))
+        .Series(x => {
+            x.Column(t => t.Expenses).Name("Expenses").Stack("Expenses");
+            x.Column(t => t.Incomes).Name("Incomes").Stack("Incomes");
+        })
+        .CategoryAxis(x => x.Categories(m => m.Category).MajorGridLines(l => l.Visible(false)))
+        .Tooltip(x => x.Visible(true).Template("#=category# — #=value# руб."))
+
+    )
+</div>
