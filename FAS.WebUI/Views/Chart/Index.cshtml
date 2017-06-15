@@ -6,7 +6,7 @@
 <h2>Index</h2>
 
 <div class="row">
-    @(Html.Kendo().Chart<ChartModel>()
+    @(Html.Kendo().Chart<ChartModel<double>>()
         .Name("CostByCategory")
         .Title(x => x.Text("Диаграмма расходов по категориям").Position(ChartTitlePosition.Top))
         .DataSource(x => x.Read(r => r.Action("CostByCategory", "Chart")))
@@ -19,7 +19,7 @@
     )
 </div>
 <div class="row">
-    @(Html.Kendo().Chart<ChartModel>()
+    @(Html.Kendo().Chart<ChartModel<int>>()
         .Name("TransactionGroupByBank")
         .Title(x => x.Text("Диаграмма транзакций по банкам").Position(ChartTitlePosition.Top))
         .DataSource(x => x.Read(r => r.Action("TransactionGroupByBank", "Chart")))

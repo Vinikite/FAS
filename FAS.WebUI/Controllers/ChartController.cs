@@ -5,9 +5,7 @@ using FAS.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FAS.WebUI.Controllers
@@ -16,11 +14,16 @@ namespace FAS.WebUI.Controllers
     public class ChartController : AppController
     {
         private readonly IBankService bankService;
+        private readonly string[] mounts;
 
         public ChartController(IUserService userService, IBankService bankService)
             : base(userService)
         {
             this.bankService = bankService;
+            this.mounts = new[] { "Январь", "Февраль", "Март",
+                                  "Апрель", "Май", "Июнь",
+                                  "Июль", "Август", "Сентябрь",
+                                  "Октябрь", "Ноябрь", "Декабрь" };
         }
 
         [HttpGet]
@@ -32,19 +35,31 @@ namespace FAS.WebUI.Controllers
         [HttpPost]
         public async Task<JsonResult> CostByCategory()
         {
-            return Json(await GetDataGroup(x => x.Category.Name), JsonRequestBehavior.DenyGet);
+            var data = await GetDataGroup(x => x.Category.Name);
+
+            return Json(data.Select(x => new ChartModel<double>()
+            {
+                Category = x.Key,
+                Value = x.Sum(t => t.Comission)
+            }), JsonRequestBehavior.DenyGet);
         }
 
         [HttpPost]
         public async Task<JsonResult> TransactionGroupByBank()
         {
-            var dbGroup = (await GetDataGroup(x => x.Bank.Name)).ToList();
+            var dbGroup = (await GetDataGroup(x => x.Bank.Name))
+                            .Select(x => new ChartModel<int>
+                            {
+                                Category = x.Key,
+                                Value = x.Count()
+                            })
+                            .ToList();
 
             foreach (var bank in bankService.Get())
             {
                 if (!dbGroup.Any(x => x.Category.Equals(bank.Name)))
                 {
-                    dbGroup.Add(new ChartModel { Category = bank.Name, Value = 0 });
+                    dbGroup.Add(new ChartModel<int> { Category = bank.Name, Value = 0 });
                 }
             }
 
@@ -59,7 +74,7 @@ namespace FAS.WebUI.Controllers
                       group tr by tr.CreatedOn.Month into gr
                       select new StackChartModel
                       {
-                          Category = gr.Key.ToString(),
+                          Category = mounts[gr.Key - 1],
                           Expenses = gr.Where(t => t.TransactionType.Name.Equals("Снятие со счета"))
                                         .Sum(t => t.Comission),
                           Incomes = gr.Where(t => t.TransactionType.Name.Equals("Поступление средств"))
@@ -74,18 +89,13 @@ namespace FAS.WebUI.Controllers
             return user.Scores.SelectMany(x => x.Transactions);
         }
 
-        private async Task<IEnumerable<ChartModel>> GetDataGroup(Func<Transaction, string> groupBy)
+        private async Task<IOrderedEnumerable<IGrouping<string, Transaction>>> GetDataGroup(
+            Func<Transaction, string> groupBy)
         {
             return GetAllTransactions(await GetCurrentUserAsync())
                     .AsEnumerable()
                     .GroupBy(groupBy)
-                    .Select(x => new ChartModel
-                    {
-                        Category = x.Key,
-                        Value = x.Count()
-                    });
-        }
-
-        
+                    .OrderBy(x => x.Key);
+        }  
     }
 }

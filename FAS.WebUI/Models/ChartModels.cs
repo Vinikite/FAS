@@ -5,9 +5,9 @@ using System.Web;
 
 namespace FAS.WebUI.Models
 {
-    public class ChartModel
+    public class ChartModel<T>
     {
-        public int Value { get; set; }
+        public T Value { get; set; }
         public string Category { get; set; }
     }
 
